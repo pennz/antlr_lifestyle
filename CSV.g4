@@ -15,6 +15,7 @@ TEXT : ~[,\n\r"]+ ;
 STRING : '"' ('""'|~'"')* '"' ;
 ACTION
     : 'work'
+    | 'buy'
     | 'cook'
     | 'eat'
     | 'read'
@@ -25,7 +26,7 @@ EMOTION
     | 'sad'
     | 'peace'
     ;
-WEATHER:
+WEATHER
     : 'good'
     | 'bad'
     ;

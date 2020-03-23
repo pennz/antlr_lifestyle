@@ -10,3 +10,5 @@ Daily/weekly review.
 
 show statics.
 analyze.
+
+API , different parts of life.

@@ -13,3 +13,19 @@ field
 
 TEXT : ~[,\n\r"]+ ;
 STRING : '"' ('""'|~'"')* '"' ;
+ACTION
+    : 'work'
+    | 'cook'
+    | 'eat'
+    | 'read'
+    ;
+OBJ : [a-zA-Z]+ ;
+EMOTION
+    : 'happy'
+    | 'sad'
+    | 'peace'
+    ;
+WEATHER:
+    : 'good'
+    | 'bad'
+    ;

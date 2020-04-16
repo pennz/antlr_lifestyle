@@ -10,8 +10,6 @@ github.com/mattn/go-colorable v0.0.0-20150625154642-40e4aedc8fab h1:3lgod/2wdM8W
 github.com/mattn/go-colorable v0.0.0-20150625154642-40e4aedc8fab/go.mod h1:9vuHe8Xs5qXnSaW/c/ABM9alt+Vo+STaOChaDxuIBZU=
 github.com/mattn/go-isatty v0.0.0-20150814002629-7fcbc72f853b h1:KOTLb2pwNaE8UOCVz1AgsFYzcswaNroRkBDIhblvUFk=
 github.com/mattn/go-isatty v0.0.0-20150814002629-7fcbc72f853b/go.mod h1:M+lRXTBqGeGNdLjl/ufCoiOlB5xdOkqRJdNxMWT7Zi4=
-github.com/pennz/antlr_lifestyle v1.1.0 h1:lp6gUlLDMw1dpVntqcRbv2RMjbKkgrQgmxz3h6tsMTM=
-github.com/pennz/antlr_lifestyle v1.1.0/go.mod h1:butaCrcAHDHysi/tFC7mR/HEDKvOjXELcSs9AefayU0=
 github.com/pennz/antlr_lifestyle v1.2.0 h1:YYzlrlWJeuIGZeri4o414T9z1EMacbpSzJftCyJnz/8=
 github.com/pennz/antlr_lifestyle v1.2.0/go.mod h1:butaCrcAHDHysi/tFC7mR/HEDKvOjXELcSs9AefayU0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

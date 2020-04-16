@@ -20,6 +20,8 @@ type actionRegistry struct {
 	Blue  ActionType
 }
 
+type Location string
+type Time string
 type thing struct {
 	where Location
 	name  string
@@ -33,6 +35,9 @@ type Actor struct {
 type Receiver struct {
 	thing
 }
+
+type Why string
+type How string
 
 type Action struct {
 	Actor      // where who

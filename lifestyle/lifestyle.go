@@ -1,7 +1,5 @@
 package lifestyle
 
-import "fmt"
-
 var Actions = newactionRegistry()
 
 type ActionType string
@@ -245,8 +243,4 @@ type Action struct {
 //  who where when what why how
 func NewAction() *Action {
 	return &Action{Actor{}, Receiver{}, Actions.Be, "", ""}
-}
-
-func main() {
-	fmt.Println("vim-go")
 }

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	lifestyle "github.com/pennz/antlr_lifestyle"
+	"github.com/pennz/antlr_lifestyle/lifestyle"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/heroku/x/hmetrics/onload"

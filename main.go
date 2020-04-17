@@ -14,7 +14,7 @@ import (
 	_ "github.com/heroku/x/hmetrics/onload"
 )
 
-func test_resty() {
+func testResty() {
 	// Create a Resty Client
 	client := resty.New()
 
@@ -77,7 +77,7 @@ func test_resty() {
 	*/
 }
 func main() {
-	test_resty()
+	testResty()
 	port := os.Getenv("PORT")
 
 	if port == "" {

@@ -216,9 +216,8 @@ type actionRegistry struct {
 type Location string
 type Time string
 type thing struct {
-	where Location
-	name  string
-	when  Time
+	Status
+	name string
 }
 
 type Actor struct {
@@ -240,7 +239,18 @@ type Action struct {
 	How
 }
 
-//  who where when what why how
+type AnimalStatus struct { // we follow the ones in the game?
+	Status
+	Mood string
+}
+
+// Status a thing have a status, or status history, planned future status
+type Status struct { // we follow the ones in the game?
+	when  Time
+	where Location
+}
+
+// NewAction  who where when what why how
 func NewAction() *Action {
 	return &Action{Actor{}, Receiver{}, Actions.Be, "", ""}
 }

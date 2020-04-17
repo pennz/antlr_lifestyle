@@ -18,3 +18,8 @@ API , different parts of life.
 how to enjoy life. So it can be better.
 
 ## data structure define
+
+## client rest
+it could do thing for us (retrieve data for yout)
+
+## we will need a datastorage thing. we just use mariadb. For this we just do pure sql, as I am learing this

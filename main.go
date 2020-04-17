@@ -11,7 +11,10 @@ import (
 	"github.com/go-resty/resty/v2"
 	"github.com/pennz/antlr_lifestyle/lifestyle"
 
+	"database/sql"
+
 	_ "github.com/heroku/x/hmetrics/onload"
+	_ "github.com/lib/pq"
 )
 
 func testResty() {
@@ -78,6 +81,12 @@ func testResty() {
 }
 func main() {
 	testResty()
+	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(db)
+
 	port := os.Getenv("PORT")
 
 	if port == "" {

@@ -41,50 +41,65 @@ CREATE TABLE thing (
   name varchar(255),
   status_id,
   thing_type_id
+  PRIMARY KEY (id)
 );
 CREATE TABLE thing_type (
   id SERIAL,
   name varchar(255),
+  PRIMARY KEY (id)
 );
 CREATE TABLE thing_domain (
   id SERIAL,
   name varchar(255)
+  PRIMARY KEY (id)
 );
 CREATE TABLE status (
   id SERIAL,
+  PRIMARY KEY (id)
 );
 CREATE TABLE tag (
   id SERIAL,
   name varchar(255)
+  PRIMARY KEY (id)
 );
 CREATE TABLE action (
   id SERIAL,
   name varchar(255)
+  PRIMARY KEY (id)
 );
 CREATE TABLE action_type (
   id SERIAL,
   name varchar(255)
+  PRIMARY KEY (id)
 ); from to why how
 CREATE TABLE relation (
   id SERIAL,
   name varchar(255)
+  from_id int NOT NULL,
+  to_id int NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (from_id) REFERENCES thing(id),
+  FOREIGN KEY (to_id)   REFERENCES thing(id),
+  PRIMARY KEY (id)
 );
 CREATE TABLE relation_type (
   id SERIAL,
   name varchar(255)
+  PRIMARY KEY (id)
 );
 CREATE TABLE relation_meta_type (
   id SERIAL,
   reciprocal boolean,
   meta_name varchar(255)
+  PRIMARY KEY (id)
 );
 CREATE TABLE relation_meta_amount_type (
   id SERIAL,
   name varchar(255)
+  PRIMARY KEY (id)
 );
 `
 
-	tablesWithIndex := []string{THING, THING_TYPE, THING_DOMAIN, TAG}
 	tablesFKs := map[string]([]string){
 		THING:              []string{THING_TYPE},
 		STATUS:             []string{THING},
@@ -95,14 +110,10 @@ CREATE TABLE relation_meta_amount_type (
 	}
 
 	tablesM2M := map[string]([]string){
-		THING:      []string{TAG, ACTION, RELATION}, // for action, just 1 to 1 for now
+		THING:      []string{TAG, ACTION}, // for action, just 1 to 1 for now
 		THING_TYPE: []string{THING_DOMAIN},
-		RELATION:   []string{THING},
 	}
 
-	for _, t := range tablesWithIndex {
-		sqlCreateStr += fmt.Sprintf("ALTER TABLE %s ADD PRIMARY KEY (id);\n", t)
-	}
 	for tMany, tOnes := range tablesFKs {
 		for _, tOne := range tOnes {
 			sqlCreateStr += fmt.Sprintf("ALTER TABLE %s ADD %s_id int NOT NULL;\n", tMany, tOne)
@@ -122,6 +133,8 @@ CREATE TABLE %s_%s (
 );\n`, m1, m2, m1, m2, m1, m1, m2, m2)
 		}
 	}
+	sqlCreateStr += `
+	` // for relation ,it just exist in relation db
 
 	log.Println(sqlCreateStr)
 	log.Println(db)

@@ -10,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"
 	"github.com/pennz/antlr_lifestyle/lifestyle"
+	"github.com/pennz/antlr_lifestyle/model"
 
 	_ "github.com/heroku/x/hmetrics/onload"
 )
@@ -79,6 +80,14 @@ func testResty() {
 
 func main() {
 	testResty()
+	env, err := model.GetFakeDB()
+	if err != nil {
+		log.Fatal(err)
+	}
+	ts, err := env.DS.AllThings()
+	for _, t := range ts {
+		fmt.Println(t)
+	}
 
 	port := os.Getenv("PORT")
 

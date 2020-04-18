@@ -28,9 +28,9 @@ type Tag string
 // Thing describes a thingship between things
 type Thing struct {
 	thingType
-	name   string
+	Name   string
 	Status // now
-	tags   []Tag
+	Tags   []Tag
 }
 
 type Actor struct {

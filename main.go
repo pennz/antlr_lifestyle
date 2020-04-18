@@ -2,6 +2,7 @@ package main
 
 // Import resty into your code and refer it as `resty`.
 import (
+	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
@@ -9,16 +10,15 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"
+	"github.com/pennz/antlr_lifestyle/db"
 	"github.com/pennz/antlr_lifestyle/lifestyle"
 
-	"database/sql"
-
 	_ "github.com/heroku/x/hmetrics/onload"
-	_ "github.com/lib/pq"
 )
 
 func testResty() {
 	// Create a Resty Client
+	db.Create()
 	client := resty.New()
 
 	resp, err := client.R().

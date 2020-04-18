@@ -79,13 +79,16 @@ func testResty() {
 	   ConnIdleTime : 0s
 	*/
 }
+
 func main() {
 	testResty()
+
 	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println(db)
+	defer db.Close()
 
 	port := os.Getenv("PORT")
 

@@ -2,25 +2,25 @@ package lifestyle
 
 type thingType struct { // meta info for Thing
 	metaTypeName string
-	thingDomain
+	domains      []thingDomain
 }
 
 func newthingDomainRegistry() *thingDomainRegistry {
 	return &thingDomainRegistry{
-		One2One:   "One2One",
-		One2Many:  "One2Many",
-		Many2One:  "Many2One",
-		Many2Many: "Many2Many",
+		tangible:  "tangible",
+		virtual:   "virtual",
+		ephemeral: "ephemeral",
+		eternal:   "eternal",
 	}
 }
 
 type thingDomain string
 
 type thingDomainRegistry struct {
-	One2One   thingDomain
-	One2Many  thingDomain
-	Many2One  thingDomain
-	Many2Many thingDomain
+	tangible  thingDomain
+	virtual   thingDomain
+	ephemeral thingDomain
+	eternal   thingDomain
 }
 
 type Tag string
@@ -28,9 +28,9 @@ type Tag string
 // Thing describes a thingship between things
 type Thing struct {
 	thingType
-	name string
-	Status
-	tags []Tag
+	name   string
+	Status // now
+	tags   []Tag
 }
 
 type Actor struct {

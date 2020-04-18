@@ -1,6 +1,7 @@
 package db
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 	"log"
@@ -24,11 +25,20 @@ const (
 	RELATION_META_AMOUNT_TYPE = "relation_meta_amount_type"
 )
 
+var (
+	ctx context.Context
+	db  *sql.DB
+)
+
 func Create() {
 	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Fatal(err)
 	}
+	//if err := db.PingContext(ctx); err != nil {
+	//	log.Fatal(err)
+	//}
+
 	// we need to write our own sql create script
 	// we have these data : relation, action, thing, status
 	// relation have relation_meta, relation, it is related to thing
@@ -39,8 +49,6 @@ func Create() {
 CREATE TABLE thing (
   id SERIAL,
   name varchar(255),
-  status_id,
-  thing_type_id
   PRIMARY KEY (id)
 );
 CREATE TABLE thing_type (
@@ -50,7 +58,7 @@ CREATE TABLE thing_type (
 );
 CREATE TABLE thing_domain (
   id SERIAL,
-  name varchar(255)
+  name varchar(255),
   PRIMARY KEY (id)
 );
 CREATE TABLE status (
@@ -59,43 +67,42 @@ CREATE TABLE status (
 );
 CREATE TABLE tag (
   id SERIAL,
-  name varchar(255)
+  name varchar(255),
   PRIMARY KEY (id)
 );
 CREATE TABLE action (
   id SERIAL,
-  name varchar(255)
+  name varchar(255),
   PRIMARY KEY (id)
 );
 CREATE TABLE action_type (
   id SERIAL,
-  name varchar(255)
+  name varchar(255),
   PRIMARY KEY (id)
-); from to why how
+);
 CREATE TABLE relation (
   id SERIAL,
-  name varchar(255)
+  name varchar(255),
   from_id int NOT NULL,
   to_id int NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (from_id) REFERENCES thing(id),
-  FOREIGN KEY (to_id)   REFERENCES thing(id),
-  PRIMARY KEY (id)
+  FOREIGN KEY (to_id)   REFERENCES thing(id)
 );
 CREATE TABLE relation_type (
   id SERIAL,
-  name varchar(255)
+  name varchar(255),
   PRIMARY KEY (id)
 );
 CREATE TABLE relation_meta_type (
   id SERIAL,
   reciprocal boolean,
-  meta_name varchar(255)
+  meta_name varchar(255),
   PRIMARY KEY (id)
 );
 CREATE TABLE relation_meta_amount_type (
   id SERIAL,
-  name varchar(255)
+  name varchar(255),
   PRIMARY KEY (id)
 );
 `
@@ -130,11 +137,16 @@ CREATE TABLE %s_%s (
   PRIMARY KEY (id),
   FOREIGN KEY (%s_id) REFERENCES %s(id),
   FOREIGN KEY (%s_id) REFERENCES %s(id)
-);\n`, m1, m2, m1, m2, m1, m1, m2, m2)
+);`, m1, m2, m1, m2, m1, m1, m2, m2)
 		}
 	}
-	sqlCreateStr += `
-	` // for relation ,it just exist in relation db
+	// for relation ,it just exist in relation db
+	log.Println(sqlCreateStr)
+	result, err := db.Exec(sqlCreateStr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println(result)
 
 	log.Println(sqlCreateStr)
 	log.Println(db)

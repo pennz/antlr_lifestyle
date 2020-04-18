@@ -5,14 +5,6 @@ type Time string
 type Why string
 type How string
 
-type Action struct {
-	Actor      // where who
-	to         Receiver
-	ActionType // when
-	Why
-	How
-}
-
 type AnimalStatus struct { // we follow the ones in the game?
 	Status
 	Mood string

@@ -4,6 +4,14 @@ var Actions = newactionRegistry()
 
 type ActionType string
 
+type Action struct {
+	Actor      // where who
+	to         Receiver
+	ActionType // when
+	Why
+	How
+}
+
 //https://www.linguasorb.com/english/verbs/most-common-verbs/
 func newactionRegistry() *actionRegistry {
 	return &actionRegistry{

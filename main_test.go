@@ -29,7 +29,7 @@ func TestGetThings(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{"GetDB_Fake", env, 200, false},
-		{"GetDB_postgres", pgenv, 403, false},
+		{"GetDB_postgres", pgenv, 200, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -38,9 +38,14 @@ func TestGetThings(t *testing.T) {
 
 			w := httptest.NewRecorder()
 			req, _ := http.NewRequest("GET", "/things", nil)
-			router.ServeHTTP(w, req)
+			reqr, _ := http.NewRequest("GET", "/actions", nil)
+			reqa, _ := http.NewRequest("GET", "/relations", nil)
 
-			log.Println(w.Body)
+			router.ServeHTTP(w, req)
+			assert.Equal(t, tt.want, w.Code)
+			router.ServeHTTP(w, reqr)
+			assert.Equal(t, tt.want, w.Code)
+			router.ServeHTTP(w, reqa)
 			assert.Equal(t, tt.want, w.Code)
 		})
 	}

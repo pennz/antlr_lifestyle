@@ -104,6 +104,28 @@ func setupRouter() *gin.Engine {
 }
 
 func addModelFunc2Router(r *gin.Engine, env model.Env) {
+	r.GET("/actions", func(c *gin.Context) {
+		ts, err := env.DS.AllActions()
+		if err != nil {
+			c.String(403, "403 Error")
+		}
+		s := ""
+		for _, t := range ts {
+			s += fmt.Sprintf("%v\n", t)
+		}
+		c.String(200, s)
+	})
+	r.GET("/relations", func(c *gin.Context) {
+		ts, err := env.DS.AllRelations()
+		if err != nil {
+			c.String(403, "403 Error")
+		}
+		s := ""
+		for _, t := range ts {
+			s += fmt.Sprintf("%v\n", t)
+		}
+		c.String(200, s)
+	})
 	r.GET("/things", func(c *gin.Context) {
 		ts, err := env.DS.AllThings()
 		if err != nil {

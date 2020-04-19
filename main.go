@@ -4,12 +4,10 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"
-	"github.com/pennz/antlr_lifestyle/lifestyle"
 	"github.com/pennz/antlr_lifestyle/model"
 
 	_ "github.com/heroku/x/hmetrics/onload"
@@ -80,13 +78,9 @@ func testResty() {
 
 func main() {
 	testResty()
-	env, err := model.GetFakeDB()
+	env, err := model.GetFakeEnv()
 	if err != nil {
 		log.Fatal(err)
-	}
-	ts, err := env.DS.AllThings()
-	for _, t := range ts {
-		fmt.Println(t)
 	}
 
 	port := os.Getenv("PORT")
@@ -95,18 +89,30 @@ func main() {
 		log.Fatal("$PORT must be set")
 	}
 
-	router := gin.New()
-	router.Use(gin.Logger())
-	router.LoadHTMLGlob("templates/*.tmpl.html")
-	router.Static("/static", "static")
+	r := setupRouter()
+	addModelFunc2Router(r, env)
+	r.Run(":" + port)
+}
 
-	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+func setupRouter() *gin.Engine {
+	r := gin.Default()
+	r.Use(gin.Logger())
+	r.GET("/ping", func(c *gin.Context) {
+		c.String(200, "pong")
 	})
+	return r
+}
 
-	log.Println("Check before")
-	log.Println("Preparation Done")
-	log.Println(lifestyle.Actions)
-	router.Run(":" + port)
-	log.Fatal("Check, router is down")
+func addModelFunc2Router(r *gin.Engine, env model.Env) {
+	r.GET("/things", func(c *gin.Context) {
+		ts, err := env.DS.AllThings()
+		if err != nil {
+			c.String(403, "403 Error")
+		}
+		s := ""
+		for _, t := range ts {
+			s += fmt.Sprintf("%v\n", t)
+		}
+		c.String(200, s)
+	})
 }

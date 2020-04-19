@@ -52,7 +52,8 @@ func (fdb *fakeDB) AllRelations() ([]*lifestyle.Relation, error) {
 	return relations, nil
 }
 
-func GetFakeDB() (Env, error) {
+// GetFakeEnv get it for test
+func GetFakeEnv() (Env, error) {
 	return Env{&fakeDB{}}, nil
 }
 

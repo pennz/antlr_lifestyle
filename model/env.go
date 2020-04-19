@@ -40,10 +40,16 @@ func (fdb *fakeDB) AllThings() ([]*lifestyle.Thing, error) {
 	return things, nil
 }
 func (fdb *fakeDB) AllActions() ([]*lifestyle.Action, error) {
-	return nil, nil
+	actions := make([]*lifestyle.Action, 0)
+	actions = append(actions, &lifestyle.Action{ActionType: lifestyle.Actions.Run})
+	actions = append(actions, &lifestyle.Action{ActionType: lifestyle.Actions.Run})
+	return actions, nil
 }
 func (fdb *fakeDB) AllRelations() ([]*lifestyle.Relation, error) {
-	return nil, nil
+	relations := make([]*lifestyle.Relation, 0)
+	relations = append(relations, &lifestyle.Relation{Name: "No"})
+	relations = append(relations, &lifestyle.Relation{Name: "Yes"})
+	return relations, nil
 }
 
 func GetFakeDB() (Env, error) {

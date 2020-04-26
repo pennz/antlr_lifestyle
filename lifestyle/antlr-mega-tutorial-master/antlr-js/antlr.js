@@ -13,7 +13,7 @@ http.createServer((req, res) => {
 
     res.write('<html><head><meta charset="UTF-8"/></head><body>');
 
-    var input = "john SHOUTS: hello @michael /pink/this will work/ :-) \n";
+    var input = "john looks to ammy \n";
     var chars = new antlr4.InputStream(input);
     var lexer = new ChatLexer.ChatLexer(chars);
     var tokens = new antlr4.CommonTokenStream(lexer);

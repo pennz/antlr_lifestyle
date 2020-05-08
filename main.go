@@ -127,14 +127,12 @@ func addModelFunc2Router(r *gin.Engine, env model.Env) {
 		c.String(200, s)
 	})
 	r.GET("/thing", func(c *gin.Context) {
-		ts, err := env.DS.Thing()
+		t, err := env.DS.Thing("good")
 		if err != nil {
 			c.String(403, "403 Error")
 		}
 		s := ""
-		for _, t := range ts {
-			s += fmt.Sprintf("%v\n", t)
-		}
+		s += fmt.Sprintf("%v\n", t)
 		c.String(200, s)
 	})
 	r.GET("/things", func(c *gin.Context) {

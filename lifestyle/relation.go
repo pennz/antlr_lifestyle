@@ -32,7 +32,7 @@ type relationMetaAmountRegistry struct {
 // it is many-to-many
 type Relation struct {
 	relationType
-	name string
+	Name string
 	from []Thing // just for datastructure, the relation type will enforce amount
 	to   []Thing
 }

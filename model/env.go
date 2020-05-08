@@ -45,6 +45,13 @@ func (fdb *fakeDB) AllActions() ([]*lifestyle.Action, error) {
 	actions = append(actions, &lifestyle.Action{ActionType: lifestyle.Actions.Run})
 	return actions, nil
 }
+
+func (fdb *fakeDB) Action(string) (*lifestyle.Action, error) {
+	return nil, nil
+}
+func (fdb *fakeDB) Relation(string) (*lifestyle.Relation, error) { return nil, nil }
+func (fdb *fakeDB) Thing(string) (*lifestyle.Thing, error)       { return nil, nil }
+
 func (fdb *fakeDB) AllRelations() ([]*lifestyle.Relation, error) {
 	relations := make([]*lifestyle.Relation, 0)
 	relations = append(relations, &lifestyle.Relation{Name: "No"})
@@ -52,11 +59,16 @@ func (fdb *fakeDB) AllRelations() ([]*lifestyle.Relation, error) {
 	return relations, nil
 }
 
+func (fdb *fakeDB) AddThing(*lifestyle.Thing) error       { return nil }
+func (fdb *fakeDB) AddAction(*lifestyle.Action) error     { return nil }
+func (fdb *fakeDB) AddRelation(*lifestyle.Relation) error { return nil }
+
 // GetFakeEnv get it for test
 func GetFakeEnv() (Env, error) {
 	return Env{&fakeDB{}}, nil
 }
 
+// GetDB is like factory, create new one if not there
 func GetDB() (Env, error) {
 	var err error = nil
 	if dataEnv.DS == nil {
@@ -64,7 +76,8 @@ func GetDB() (Env, error) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		dataEnv = Env{DB{db}}
+		fmt.Println(db)
+		dataEnv = Env{&fakeDB{}}
 	}
 
 	return dataEnv, err

@@ -1,3 +1,5 @@
+# github.com/davecgh/go-spew v1.1.0
+github.com/davecgh/go-spew/spew
 # github.com/gin-gonic/gin v0.0.0-20150626140855-4cc2de6207f4
 github.com/gin-gonic/gin
 github.com/gin-gonic/gin/binding
@@ -17,7 +19,11 @@ github.com/manucorporat/sse
 github.com/mattn/go-colorable
 # github.com/mattn/go-isatty v0.0.0-20150814002629-7fcbc72f853b
 github.com/mattn/go-isatty
-# golang.org/x/net v0.0.0-20200222125558-5a598a2470a0
+# github.com/pmezard/go-difflib v1.0.0
+github.com/pmezard/go-difflib/difflib
+# github.com/stretchr/testify v1.3.0
+github.com/stretchr/testify/assert
+# golang.org/x/net v0.0.0-20200226121028-0de0cce0169b
 golang.org/x/net/context
 golang.org/x/net/publicsuffix
 # gopkg.in/bluesuncorp/validator.v5 v5.9.1

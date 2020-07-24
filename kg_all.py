@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+# You can run the script in https://colab.research.google.com/drive/1_sugpWV13NbbvtCRIImLKAw0ifCpMqxn?usp=sharing
+
 # kg_get_entities.py
 def get_entities(sent):
   """get_entities is the fork of https://gist.github.com/prateekjoshi565/241aee30cc95aaf54a3533c2ec0f0b40#file-kg_extract_entities-py, added some comments"""

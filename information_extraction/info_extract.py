@@ -152,6 +152,11 @@ span = doc[matches[0][1]:matches[0][2]]
 print(span.text)
 
 # ie_dep_tree_plot.py
+"""The simple rule-based methods work well for information extraction tasks. However, they have a few drawbacks and shortcomings.
+- need to exhaust all rule for all possible patterns, 
+- not generalization
+"""
+
 text = "Tableau was recently acquired by Salesforce." 
 
 # Plot the dependency graph 
@@ -212,3 +217,6 @@ def subtree_matcher(doc):
 
   return x,y
 
+
+print(subtree_matcher(doc_3))
+print(subtree_matcher(nlp("Tableau was recently acquired by Salesforce."))

@@ -18,8 +18,9 @@ API , different parts of life.
 how to enjoy life. So it can be better. (for the book in kindle Jin Jing)
 
 ## data structure define
+Ans: just input as lines of text describing what we have done today, it will be put to structured relational database, output graph data(a presentation)
 
-## client rest
+## client restful API
 it could do thing for us (retrieve data for yout)
 
 ## we will need a datastorage thing. we just use mariadb. For this we just do pure sql, as I am learing this
@@ -32,3 +33,4 @@ it could do thing for us (retrieve data for yout)
 - add document generation
 - image generation part( some message queue can be use, to view real time data) (knowledge graph)
 - grading part
+- ide for input(later), we just use nlp first, should be easier

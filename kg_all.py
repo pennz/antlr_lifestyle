@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # kg_get_entities.py
 def get_entities(sent):
   """get_entities is the fork of https://gist.github.com/prateekjoshi565/241aee30cc95aaf54a3533c2ec0f0b40#file-kg_extract_entities-py, added some comments"""
@@ -85,18 +86,18 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 
 pd.set_option('display.max_colwidth', 200)
-%matplotlib inline
-
-# kg_read_data.py
-# import wikipedia sentences
-candidate_sentences = pd.read_csv("wiki_sentences_v2.csv")
-candidate_sentences.shape
+# %matplotlib inline
 
 # kg_dep_parse.py
 doc = nlp("the drawdown process is governed by astm standard d823")
 
 for tok in doc:
   print(tok.text, "...", tok.dep_)
+
+# kg_read_data.py
+# import wikipedia sentences
+candidate_sentences = pd.read_csv("wiki_sentences_v2.csv")
+print(candidate_sentences.shape)
 
 # kg_extract_entities.py
 entity_pairs = []
@@ -138,6 +139,9 @@ source = [i[0] for i in entity_pairs]
 # extract object
 target = [i[1] for i in entity_pairs]
 
+# extract relations
+relations = [get_relation(i) for i in tqdm(candidate_sentences['sentence'])]
+
 kg_df = pd.DataFrame({'source':source, 'target':target, 'edge':relations})
 
 # kg_create_graph_1.py
@@ -178,4 +182,3 @@ plt.figure(figsize=(12,12))
 pos = nx.spring_layout(G, k = 0.5)
 nx.draw(G, with_labels=True, node_color='skyblue', node_size=1500, edge_cmap=plt.cm.Blues, pos = pos)
 plt.show()
-

@@ -34,3 +34,6 @@ it could do thing for us (retrieve data for yout)
 - image generation part( some message queue can be use, to view real time data) (knowledge graph)
 - grading part
 - ide for input(later), we just use nlp first, should be easier
+- learn from bill board grammer, then just do it with antlr. For basic dataset operation, just a wrapper for SQL. Or we just add new items automatically.
+- after we parsed our input, we put it to related dataset, then data analysis.
+

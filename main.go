@@ -103,6 +103,22 @@ func setupRouter() *gin.Engine {
 	return r
 }
 
+// parse_do call python? to parse
+func parse_do(deeds []string) error {
+	log.Fatal(deeds)
+	return nil
+}
+
+func get_data(c *gin.Context) (map[string][]string, error) {
+	q := c.Request.URL.Query()
+	v, ok := q["do"]
+	if ok {
+		parse_do(v)
+	}
+
+	return q, nil
+}
+
 func addModelFunc2Router(r *gin.Engine, env model.Env) {
 	r.GET("/actions", func(c *gin.Context) {
 		ts, err := env.DS.AllActions()
@@ -113,6 +129,20 @@ func addModelFunc2Router(r *gin.Engine, env model.Env) {
 		for _, t := range ts {
 			s += fmt.Sprintf("%v\n", t)
 		}
+		c.String(200, s)
+	})
+
+	r.GET("/api", func(c *gin.Context) {
+		ts, err := get_data(c)
+
+		if err != nil {
+			c.String(403, "403 Error")
+		}
+		s := ""
+		for _, t := range ts {
+			s += fmt.Sprintf("%v\n", t)
+		}
+
 		c.String(200, s)
 	})
 	r.GET("/relations", func(c *gin.Context) {

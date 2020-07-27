@@ -45,11 +45,19 @@ Just python pool and save to database [YOU PROBABLY DON’T NEED A MESSAGE QUEUE
 > well.
 
 So answer: just run scheduled tasks. Not go calling python... Not
-over-complicate it.
+over-complicate it. Not easy to maintain.
+
+## parse by python, and then send it back to our go API?
 
 ## Message queue or not
 Queue: let python handle inputed sentences, and put it to handled ones. The un-handled 
 ones can be leave there for analysis.
+Just like UDP.
+
+Anyway,  we need parse out our input, and put it to dataset. Or read it out from 
+dataset, then back to dataset.
 
 ## for display
-Follow datadog agent? go just call python module?
+Follow datadog agent? Go just call python module?
+
+We use Javascript thing to show graph (html tools is more available, interactive graphs)

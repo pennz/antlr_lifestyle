@@ -173,23 +173,6 @@ doc = nlp(text)
 for tok in doc:
   print(tok.text, "-->", tok.dep_, "-->", tok.pos_)
 
-# ie_subtree_match_1.py
-text_2 = "Careem, a ride hailing major in middle east, was acquired by Uber."
-
-doc_2 = nlp(text_2)
-subtree_matcher(doc_2)
-
-# ie_subtree_match_2.py
-text_3 = "Salesforce recently acquired Tableau."
-doc_3 = nlp(text_3)
-subtree_matcher(doc_3)
-
-# ie_dep_parse_6.py
-
-for tok in doc_3:
-  print(tok.text, "-->",tok.dep_, "-->",tok.pos_)
-
-# ie_subtree_match_3.py
 
 def subtree_matcher(doc):
   subjpass = 0
@@ -223,6 +206,25 @@ def subtree_matcher(doc):
         y = tok.text
 
   return x, y
+
+
+# ie_subtree_match_1.py
+text_2 = "Careem, a ride hailing major in middle east, was acquired by Uber."
+
+doc_2 = nlp(text_2)
+subtree_matcher(doc_2)
+
+# ie_subtree_match_2.py
+text_3 = "Salesforce recently acquired Tableau."
+doc_3 = nlp(text_3)
+subtree_matcher(doc_3)
+
+# ie_dep_parse_6.py
+
+for tok in doc_3:
+  print(tok.text, "-->", tok.dep_, "-->", tok.pos_)
+
+# ie_subtree_match_3.py
 
 
 print(subtree_matcher(doc_3))

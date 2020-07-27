@@ -688,4 +688,5 @@ endif
 copy_setup: ## Copy the structure to another (python) project from base. 
 	cp -r $(BASE)/pyproject.toml $(BASE)/config $(BASE)/docs $(BASE)/Makefile .
 	make setup
-	git add pyproject.toml config docs Makefile
+	@git add pyproject.toml config docs Makefile
+	@poetry run python -m scapy download en_core_web_sm

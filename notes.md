@@ -48,6 +48,7 @@ So answer: just run scheduled tasks. Not go calling python... Not
 over-complicate it. Not easy to maintain.
 
 ## parse by python, and then send it back to our go API?
+DODODO
 
 ## Message queue or not
 Queue: let python handle inputed sentences, and put it to handled ones. The un-handled 

@@ -39,14 +39,15 @@ doc = nlp(text)
 # print token, dependency, POS tag
 
 for tok in doc:
-  print(tok.text, "-->",tok.dep_,"-->", tok.pos_)
+  print(tok.text, "-->", tok.dep_, "-->", tok.pos_)
 
 # ie_define_pattern.py
 #define the pattern
-pattern = [{'POS':'NOUN'},
+pattern = [{'POS': 'NOUN'},
            {'LOWER': 'such'},
            {'LOWER': 'as'},
-           {'POS': 'PROPN'} #proper noun]
+           {'POS': 'PROPN'}  # proper noun
+           ]
 
 # ie_spacy_matcher_1.py
 # Matcher class object
@@ -63,8 +64,8 @@ print(span.text)
 matcher = Matcher(nlp.vocab)
 
 #define the pattern
-pattern = [{'DEP':'amod', 'OP':"?"}, # adjectival modifier
-           {'POS':'NOUN'},
+pattern = [{'DEP': 'amod', 'OP': "?"},  # adjectival modifier
+           {'POS': 'NOUN'},
            {'LOWER': 'such'},
            {'LOWER': 'as'},
            {'POS': 'PROPN'}]
@@ -81,17 +82,17 @@ doc = nlp("Here is how you can keep your car and other vehicles clean.")
 # print dependency tags and POS tags
 
 for tok in doc:
-  print(tok.text, "-->",tok.dep_, "-->",tok.pos_)
+  print(tok.text, "-->", tok.dep_, "-->", tok.pos_)
 
 # ie_spacy_matcher_3.py
 # Matcher class object
 matcher = Matcher(nlp.vocab)
 
 #define the pattern
-pattern = [{'DEP':'amod', 'OP':"?"},
-           {'POS':'NOUN'},
-           {'LOWER': 'and', 'OP':"?"},
-           {'LOWER': 'or', 'OP':"?"},
+pattern = [{'DEP': 'amod', 'OP': "?"},
+           {'POS': 'NOUN'},
+           {'LOWER': 'and', 'OP': "?"},
+           {'LOWER': 'or', 'OP': "?"},
            {'LOWER': 'other'},
            {'POS': 'NOUN'}]
 
@@ -105,21 +106,21 @@ print(span.text)
 doc = nlp("Eight people, including two children, were injured in the explosion")
 
 for tok in doc:
-  print(tok.text, "-->",tok.dep_, "-->",tok.pos_)
+  print(tok.text, "-->", tok.dep_, "-->", tok.pos_)
 
 # ie_spacy_matcher_4.py
 # Matcher class object
 matcher = Matcher(nlp.vocab)
 
 #define the pattern
-pattern = [{'DEP':'nummod','OP':"?"}, # numeric modifier
-           {'DEP':'amod','OP':"?"}, # adjectival modifier
-           {'POS':'NOUN'},
+pattern = [{'DEP': 'nummod', 'OP': "?"},  # numeric modifier
+           {'DEP': 'amod', 'OP': "?"},  # adjectival modifier
+           {'POS': 'NOUN'},
            {'IS_PUNCT': True},
            {'LOWER': 'including'},
-           {'DEP':'nummod','OP':"?"},
-           {'DEP':'amod','OP':"?"},
-           {'POS':'NOUN'}]
+           {'DEP': 'nummod', 'OP': "?"},
+           {'DEP': 'amod', 'OP': "?"},
+           {'POS': 'NOUN'}]
 
 matcher.add("matching_1", None, pattern)
 
@@ -138,14 +139,14 @@ for tok in doc:
 matcher = Matcher(nlp.vocab)
 
 #define the pattern
-pattern = [{'DEP':'nummod','OP':"?"},
-           {'DEP':'amod','OP':"?"},
-           {'POS':'NOUN'},
-           {'IS_PUNCT':True},
+pattern = [{'DEP': 'nummod', 'OP': "?"},
+           {'DEP': 'amod', 'OP': "?"},
+           {'POS': 'NOUN'},
+           {'IS_PUNCT': True},
            {'LOWER': 'especially'},
-           {'DEP':'nummod','OP':"?"},
-           {'DEP':'amod','OP':"?"},
-           {'POS':'NOUN'}]
+           {'DEP': 'nummod', 'OP': "?"},
+           {'DEP': 'amod', 'OP': "?"},
+           {'POS': 'NOUN'}]
 
 matcher.add("matching_1", None, pattern)
 
@@ -163,14 +164,14 @@ text = "Tableau was recently acquired by Salesforce."
 
 # Plot the dependency graph
 doc = nlp(text)
-displacy.render(doc, style='dep',jupyter=True)
+displacy.render(doc, style='dep', jupyter=True)
 
 # ie_dep_parse_5.py
 text = "Tableau was recently acquired by Salesforce."
 doc = nlp(text)
 
 for tok in doc:
-  print(tok.text,"-->",tok.dep_,"-->",tok.pos_)
+  print(tok.text, "-->", tok.dep_, "-->", tok.pos_)
 
 # ie_subtree_match_1.py
 text_2 = "Careem, a ride hailing major in middle east, was acquired by Uber."
@@ -185,14 +186,15 @@ subtree_matcher(doc_3)
 
 # ie_dep_parse_6.py
 
-for tok in doc_3:   
+for tok in doc_3:
   print(tok.text, "-->",tok.dep_, "-->",tok.pos_)
 
 # ie_subtree_match_3.py
+
 def subtree_matcher(doc):
   subjpass = 0
 
-  for i,tok in enumerate(doc):
+  for i, tok in enumerate(doc):
     # find dependency tag that contains the text "subjpass"
 
     if tok.dep_.find("subjpass") == True:
@@ -204,7 +206,7 @@ def subtree_matcher(doc):
   # if subjpass == 1 then sentence is passive
 
   if subjpass == 1:
-    for i,tok in enumerate(doc):
+    for i, tok in enumerate(doc):
       if tok.dep_.find("subjpass") == True:
         y = tok.text
 
@@ -213,15 +215,15 @@ def subtree_matcher(doc):
 
   # if subjpass == 0 then sentence is not passive
   else:
-    for i,tok in enumerate(doc):
+    for i, tok in enumerate(doc):
       if tok.dep_.endswith("subj") == True:
         x = tok.text
 
       if tok.dep_.endswith("obj") == True:
         y = tok.text
 
-  return x,y
+  return x, y
 
 
 print(subtree_matcher(doc_3))
-print(subtree_matcher(nlp("Tableau was recently acquired by Salesforce."))
+print(subtree_matcher(nlp("Tableau was recently acquired by Salesforce.")))

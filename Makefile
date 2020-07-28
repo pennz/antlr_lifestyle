@@ -695,8 +695,10 @@ copy_setup: ## Copy the structure to another (python) project from base.
 gen_req:
 	@$(RUN) python -m pip freeze > requirements.txt
 
+er:
+	$(RUN) python knowledge_graph/entity_relations.py
+
 binder_after_run:
 	$(eval RUN :=)
 	@$(RUN) python -m spacy download en_core_web_sm
-	#@$(RUN) python information_extraction/info_extract.py
-	@$(RUN) python knowledge_graph/entity_relations.p
+	make er

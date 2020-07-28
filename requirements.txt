@@ -41,7 +41,6 @@ jedi==0.17.2
 Jinja2==2.11.2
 jinja2-cli==0.7.0
 joblib==0.16.0
--e git+git@github.com:pennz/antlr_lifestyle.git@0b75d2383732ddceeefa9c7a94bd8fe53227257d#egg=lifestyle
 livereload==2.6.2
 lunr==0.5.8
 Markdown==3.2.2

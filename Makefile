@@ -8,6 +8,7 @@ export CC_TEST_REPORTER_ID := 501f2d3f82d0d671d4e2dab422e60140a9461aa51013ecca0e
 PY_SRC=$(wildcard */**.py)
 CI ?= false
 TESTING ?= false
+RUN=poetry run
 
 JUPYTER_PARAMS := --NotebookApp.token=greatday --NotebookApp.notebook_dir=/content/ --NotebookApp.allow_origin=* --NotebookApp.disable_check_xsrf=True --NotebookApp.iopub_data_rate_limit=10010000000 --NotebookApp.open_browser=False --allow-root
 TOXIC_DEP := coverage ipdb pyicu pycld2 polyglot textstat googletrans transformers==2.5.1 pandarallel catalyst==20.4.2 colorama parse pysnooper ripdb pytest-logger python_logging_rabbitmq
@@ -59,7 +60,7 @@ export SERVER
 export CHECK_PORT
 
 URL="https://www.kaggleusercontent.com/kf/33961266/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..b3ZzhVJx_c1vhjL3vVc5Ow.4i-Vpk1-bF9zCZJP7LHiuSY44ljoCyKbD7rLcvDSUuViAHL3Xw_Idb3gkMIGhqY6kLN9GX2VzGdxAv9qqOJGXYc7EUeljbX6dvjdssk5Iuhwl4kxz-TIsWYaxqONbMGBQX9rT-nIJYmpjV8UKle7DlX1UYFJKhLYyuckV1B5ZEGHkRjdzwasPlhc8IJkX83RfLhe7C6T0pR8oFU-gmvtQxSvKzXprbYvPQVRMyBf4xD8Bm9xvEq8aFVIiwHGROwvIcorUhZ3cHsCXRSE6RDm7f1rmbA_52xetuCEB2de1_tg-XZ7FoBx6_QaQHXnZWWRhZ1Edyzt5LlakbQI55Ncq3RBByr84QnJmAc9yJORqorQrtEWuAXCrHbYTiKR39i4sm2mkcvIhdgqYuHh8E7ZMXt7MiYr4W6Na233NBRPzY4l15DXqV5ZXp_m-th1ljwxUK8AvNTo0Qs3PNd0bvezFQew10jrMR-N-Z8ZFqtX--Ba8BbMFex6_jJxhN6JXFOXPwCJUWhrZ1yYNE3iqpavJkOM06Vkx6UEOhNbawmPrDtzF4vXViCdHbfUTcpd2qvmXgVlTg7cULSw4MzGdN-Uqbp6-MnpvGIFrRVOVooRE5u8zhrbRcZL4RApjr9SrIEPm1WSp7Qlj8wjktBL4K1bNKn4NE9-AFtOu_0X-lL0Afav41RxxhqQyL_Ox3o3YI8Y.hz022ycDLUciahf-YOeEDw/inceptionresnetv2-520b38e4.pth"
-PY=poetry run python3
+PY=$(RUN) python3
 SRC=$(wildcard */**.py)
 SHELL=/bin/bash
 
@@ -306,7 +307,7 @@ check: ## Check.
 	-@echo $(UNBUFFER) $(UNBUFFERP) $(SERVER) $(CHECK_PORT) | ncat $(SERVER) $(CHECK_PORT)
 	-expect -h
 	pstree -laps $$$$
-	-poetry run echo "$$(which python3) is our python executable"; \
+	-$(RUN) echo "$$(which python3) is our python executable"; \
 $(PY) -c 'import sys; print(sys.path);'; \
 if [[ x$$(which $(PY)) =~ conda ]]; then echo conda env fine; else echo >&2 conda env not set correctly, please check.; source ~/.bashrc; conda activate pyt; fi
 	@$(PY) -c 'import os; print("$@: DEBUG=%s" % os.environ.get("DEBUG"));' 2>&1
@@ -468,7 +469,7 @@ gitbook fetch 3.2.3 ; ) ) # fetch final stable version and add any requested plu
 .PHONY: setup_pip
 setup_pip: ## setup_pip
 	python3 -m pip -h &>/dev/null || (curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3 get-pip.py)
-	-@poetry run python -m pip install --upgrade pip
+	-@$(RUN) python -m pip install --upgrade pip
 
 .PHONY: setup_venv
 setup_venv: setup_pip ## Install python3-venv
@@ -608,7 +609,7 @@ check_all: check-docs check-code-quality check-types check-dependencies  ## Chec
 
 .PHONY: check-code-quality
 check-code-quality:  ## Check the code quality.
-	@poetry run failprint -t "Checking code quality" -- flake8 --config=config/flake8.ini $(PY_SRC)
+	@$(RUN) failprint -t "Checking code quality" -- flake8 --config=config/flake8.ini $(PY_SRC)
 
 .PHONY: check-dependencies
 check-dependencies:  ## Check for vulnerabilities in dependencies.
@@ -619,68 +620,68 @@ check-dependencies:  ## Check for vulnerabilities in dependencies.
 		fi; \
 	fi; \
 	poetry export -f requirements.txt --without-hashes | \
-		poetry run failprint --no-pty -t "Checking dependencies" -- $$SAFETY check --stdin --full-report
+		$(RUN) failprint --no-pty -t "Checking dependencies" -- $$SAFETY check --stdin --full-report
 
 .PHONY: check-docs
 check-docs:  ## Check if the documentation builds correctly.
-	@poetry run failprint -t "Building documentation" -- mkdocs build -s
+	@$(RUN) failprint -t "Building documentation" -- mkdocs build -s
 
 .PHONY: check-types
 check-types:  ## Check that the code is correctly typed.
-	@poetry run failprint -t "Type-checking" -- mypy --config-file config/mypy.ini $(PY_SRC)
+	@$(RUN) failprint -t "Type-checking" -- mypy --config-file config/mypy.ini $(PY_SRC)
 
 .PHONY: changelog
 changelog:  ## Update the changelog in-place with latest commits.
 	-@python scripts/update_changelog.py CHANGELOG.md "<!-- insertion marker -->" "^## \[(?P<version>[^\]]+)"
-	@poetry run failprint -t "Updating changelog" -- python scripts/update_changelog.py CHANGELOG.md "<!-- insertion marker -->" "^## \[(?P<version>[^\]]+)"
+	@$(RUN) failprint -t "Updating changelog" -- python scripts/update_changelog.py CHANGELOG.md "<!-- insertion marker -->" "^## \[(?P<version>[^\]]+)"
 
 .PHONY: docs
 docs: docs-regen kr ## Build the documentation locally.
 	#$(PY) -m show mkdocs &>/dev/null || $(PY) -m pip install mkdocs mkdocs-material mkdocstrings
 	python3 -m pip install mkdocs mkdocs-material mkdocstrings
-	#@poetry run mkdocs build
+	#@$(RUN) mkdocs build
 	#$(PY) -m mkdocs build -d public
 	python3 -m mkdocs build -d public
 
 .PHONY: docs-py-md-gen
 docs-py-md-gen:
-	@poetry run bin/document_thing 1
+	@$(RUN) bin/document_thing 1
 	rm docs/kaggle_runner/runner_template/main.md
 	rm docs/kaggle_runner/runners/tpu_trainer.md
 	rm docs/kaggle_runner/datasets/mock_dataset.md
 
 .PHONY: docs-regen
 docs-regen: docs-py-md-gen setup_pip ## Regenerate some documentation pages.
-	@poetry run python scripts/regen_docs.py
+	@$(RUN) python scripts/regen_docs.py
 
 .PHONY: docs-serve
 docs-serve: docs-regen  ## Serve the documentation (localhost:8000).
-	@poetry run mkdocs serve
+	@$(RUN) mkdocs serve
 
 .PHONY: docs-deploy
 docs-deploy: docs-regen  ## Deploy the documentation on GitHub pages.
-	@poetry run mkdocs gh-deploy
+	@$(RUN) mkdocs gh-deploy
 
 .PHONY: format
 format:  ## Run formatting tools on the code.
-	@poetry run failprint -t "Formatting code" -- black $(PY_SRC)
-	@poetry run failprint -t "Ordering imports" -- isort -y -rc $(PY_SRC)
+	@$(RUN) failprint -t "Formatting code" -- black $(PY_SRC)
+	@$(RUN) failprint -t "Ordering imports" -- isort -y -rc $(PY_SRC)
 
 .PHONY: release
 release:  ## Create a new release (commit, tag, push, build, publish, deploy docs).
 ifndef v
 	$(error Pass the new version with 'make release v=0.0.0')
 endif
-	@poetry run failprint -t "Bumping version" -- poetry version $(v)
-	@poetry run failprint -t "Staging files" -- git add pyproject.toml CHANGELOG.md
-	@poetry run failprint -t "Committing changes" -- git commit -m "chore: Prepare release $(v)"
-	@poetry run failprint -t "Tagging commit" -- git tag v$(v)
-	@poetry run failprint -t "Building dist/wheel" -- poetry build
+	@$(RUN) failprint -t "Bumping version" -- poetry version $(v)
+	@$(RUN) failprint -t "Staging files" -- git add pyproject.toml CHANGELOG.md
+	@$(RUN) failprint -t "Committing changes" -- git commit -m "chore: Prepare release $(v)"
+	@$(RUN) failprint -t "Tagging commit" -- git tag v$(v)
+	@$(RUN) failprint -t "Building dist/wheel" -- poetry build
 	-@if ! $(CI) && ! $(TESTING); then \
-		poetry run failprint -t "Pushing commits" -- git push; \
-		poetry run failprint -t "Pushing tags" -- git push --tags; \
-		poetry run failprint -t "Publishing version" -- poetry publish; \
-		poetry run failprint -t "Deploying docs" -- poetry run mkdocs gh-deploy; \
+		$(RUN) failprint -t "Pushing commits" -- git push; \
+		$(RUN) failprint -t "Pushing tags" -- git push --tags; \
+		$(RUN) failprint -t "Publishing version" -- poetry publish; \
+		$(RUN) failprint -t "Deploying docs" -- RUN mkdocs gh-deploy; \
 	fi
 
 
@@ -689,7 +690,13 @@ copy_setup: ## Copy the structure to another (python) project from base.
 	cp -r $(BASE)/pyproject.toml $(BASE)/config $(BASE)/docs $(BASE)/Makefile .
 	make setup
 	@git add pyproject.toml config docs Makefile
-	@poetry run python -m scapy download en_core_web_sm
+	@$(RUN) python -m spacy download en_core_web_sm
 
 gen_req:
-	@poetry run python -m pip freeze > requirements.txt
+	@$(RUN) python -m pip freeze > requirements.txt
+
+binder_after_run:
+	$(eval RUN :=)
+	@$(RUN) python -m spacy download en_core_web_sm
+	@$(RUN) python information_extraction/info_extract.py
+

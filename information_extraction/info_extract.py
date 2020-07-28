@@ -1,4 +1,6 @@
 """
+https://www.analyticsvidhya.com/blog/2019/09/introduction-information-extraction-python-spacy/
+
 Goal:
 	extract hypernym-hyponym pairs by using these patterns/rules
 Knowledge:

@@ -3,13 +3,17 @@ package lifestyle
 var Actions = newactionRegistry()
 
 type ActionType string
+type Result string
 
 type Action struct {
-	Actor      // where who
-	to         Receiver
-	ActionType // when
+	Actor
+	to Receiver
+	ActionType
+	When
 	Why
 	How
+	Where
+	Result
 }
 
 //https://www.linguasorb.com/english/verbs/most-common-verbs/

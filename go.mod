@@ -3,7 +3,6 @@ module github.com/pennz/antlr_lifestyle
 go 1.12
 
 require (
-	github.com/DataDog/go-python3 v0.0.0-20191126174558-6ed25e33b3c4
 	github.com/gin-gonic/gin v0.0.0-20150626140855-4cc2de6207f4
 	github.com/go-resty/resty/v2 v2.2.0
 	github.com/heroku/x v0.0.0-20171004170240-705849e307dd

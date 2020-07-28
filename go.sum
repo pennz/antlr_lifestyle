@@ -1,5 +1,3 @@
-github.com/DataDog/go-python3 v0.0.0-20191126174558-6ed25e33b3c4 h1:QeqJzUd2qeHQPWG+gGVCZXD9VhsWfHfmlSVe5MjkEds=
-github.com/DataDog/go-python3 v0.0.0-20191126174558-6ed25e33b3c4/go.mod h1:7ctnOCLiUlwKO9GvAjusUF68edSbiHqC18gVPQF0ojA=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/gin-gonic/gin v0.0.0-20150626140855-4cc2de6207f4 h1:ufr+93X0/9xTNvObfvbHsEkgCk8BrhmUH83Z8YIhzXE=

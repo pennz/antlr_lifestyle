@@ -19,4 +19,5 @@ ENV HOME /app
 WORKDIR /app
 RUN useradd -m heroku
 USER heroku
+ENV PORT 5000
 #CMD /app/bin/antlr_lifestyle

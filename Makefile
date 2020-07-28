@@ -698,5 +698,5 @@ gen_req:
 binder_after_run:
 	$(eval RUN :=)
 	@$(RUN) python -m spacy download en_core_web_sm
-	@$(RUN) python information_extraction/info_extract.py
-
+	#@$(RUN) python information_extraction/info_extract.py
+	@$(RUN) python knowledge_graph/entity_relations.p

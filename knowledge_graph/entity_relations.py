@@ -8,6 +8,8 @@ $9.4 million --> Net income.
 
 Compatible with: spaCy v2.0.0+
 Last tested with: v2.2.1
+
+Copy from spaCy github repo examples folder
 """
 from __future__ import unicode_literals, print_function
 

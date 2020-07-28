@@ -4,6 +4,8 @@ type Location string
 type Time string
 type Why string
 type How string
+type Where string
+type When string
 
 type AnimalStatus struct { // we follow the ones in the game?
 	Status

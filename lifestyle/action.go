@@ -4,6 +4,7 @@ var Actions = newactionRegistry()
 
 type ActionType string
 type Result string
+type Method string
 
 type Action struct {
 	Actor
@@ -11,7 +12,8 @@ type Action struct {
 	ActionType
 	When
 	Why
-	How
+	How // method, no -> just your feeling when doing it
+	Method
 	Where
 	Result
 }

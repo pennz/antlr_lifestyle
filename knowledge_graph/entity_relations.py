@@ -16,10 +16,10 @@ import spacy
 
 
 TEXTS = [
-    "I have made a sandwitch today by ",
+    "I have made a sandwitch today.",
     "I have happily eaten a sandwitch today at Supermarket because I am hungry."
-    " It made me feel good",
-    "I solve the problem by following the method found on Internet",
+    " It made me feel good.",
+    "I solve the problem by following the method found on Internet.",
 ]
 
 
@@ -32,6 +32,7 @@ def main(model="en_core_web_sm"):
     print("Processing %d texts" % len(TEXTS))
 
     for text in TEXTS:
+        print("Handling:", text)
         doc = nlp(text)
         relations = extract_currency_relations(doc)
 

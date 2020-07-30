@@ -1,4 +1,5 @@
 # nlp_ie_01.py
+# reference: POS (https://universaldependencies.org/docs/u/pos/)
 # import spacy
 from random import randint
 from IPython.display import Image, display
@@ -82,6 +83,7 @@ df.head()
 # nlp_ie_06.py
 # function to preprocess speech
 
+
 def clean(text):
     """Usual routine, clean the data"""
 
@@ -111,6 +113,7 @@ df['Speech_clean'] = df['Speech'].apply(clean)
 
 # nlp_ie_07.py
 # split sentences
+
 
 def sentences(text):
     """sentences.
@@ -192,7 +195,8 @@ df2['PM_Names'] = df2['Speech_clean'].apply(find_names)
 
 
 def prog_sent(text):
-    """prog_sent.
+    """prog_sent get sentences which contain programs. Search with case insens-
+    itivity.
 
     Args:
         text:
@@ -245,8 +249,9 @@ def all_schemes(text, check):
                  'alliance', 'plan']
 
     # pattern to match initiatives names
-    pattern = [{'POS': 'DET'},
-               {'POS': 'PROPN', 'DEP': 'compound'},
+    # e.g. The Paul Bill plan
+    pattern = [{'POS': 'DET'},  # e.g. the
+               {'POS': 'PROPN', 'DEP': 'compound'},  # proper noun
                {'POS': 'PROPN', 'DEP': 'compound'},
                {'POS': 'PROPN', 'OP': '?'},
                {'POS': 'PROPN', 'OP': '?'},
@@ -288,7 +293,10 @@ df2['Schemes1'] = df2.apply(
     lambda x: all_schemes(x.Sent, x.Check_Schemes), axis=1)
 
 # nlp_ie_12.py
-doc = nlp(' Last year, I spoke about the Ujjwala programme , through which, I am happy to report, 50 million free liquid-gas connections have been provided so far')
+# To understand the structure of the sentence.
+doc = nlp(' Last year, I spoke about the Ujjwala programme, through which,
+          I am happy to report, 50 million free liquid-gas connections have
+          been provided so far')
 png = visualise_spacy_tree.create_png(doc)
 display(Image(png))
 
@@ -297,7 +305,8 @@ display(Image(png))
 
 
 def sent_subtree(text):
-    """sent_subtree.
+    """sent_subtree, In tree view to get the proper nouns in the subtree for
+    initiative name.
 
     Args:
         text:
@@ -397,7 +406,8 @@ def rand_sent(df):
 
 
 def output_per(df, out_col):
-    """output_per.
+    """output_per is a function to check output percentage for a rule
+    (percentage of non-trivial in a column).
 
     Args:
         df:
@@ -420,14 +430,13 @@ def output_per(df, out_col):
 
 
 def rule1(text):
-    """rule1.
+    """rule1: noun(subject), verb, noun(object)
 
     Args:
-        text:
+        text: to extract SVO info
     """
 
     doc = nlp(text)
-
     sent = []
 
     for token in doc:
@@ -447,7 +456,7 @@ def rule1(text):
                     # add subject to the phrase
                     phrase += sub_tok.text
 
-                    # save the root of the verb in phrase
+                    # save the root of the verb (our main token) in phrase
                     phrase += ' '+token.lemma_
 
                     # check for noun or pronoun direct objects
@@ -501,11 +510,12 @@ df_rule1_all = pd.DataFrame(row_list)
 output_per(df_rule1_all, 'Output')
 
 # nlp_ie_21.py
+# Information Extraction #4 – Rule on Adjective Noun Structure
 # function for rule 2
 
 
 def rule2(text):
-    """rule2.
+    """rule2, noun.
 
     Args:
         text:

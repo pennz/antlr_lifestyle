@@ -113,6 +113,11 @@ df['Speech_clean'] = df['Speech'].apply(clean)
 # split sentences
 
 def sentences(text):
+    """sentences.
+
+    Args:
+        text:
+    """
     # split sentences and questions. split with '.' and '?' ...
     text = re.split('[.?!]', text)
     clean_sent = []
@@ -138,6 +143,11 @@ nlp = spacy.load('en_core_web_sm', disable=['ner', 'textcat'])
 
 
 def find_names(text):
+    """find_names.
+
+    Args:
+        text:
+    """
 
     names = []
 
@@ -182,6 +192,11 @@ df2['PM_Names'] = df2['Speech_clean'].apply(find_names)
 
 
 def prog_sent(text):
+    """prog_sent.
+
+    Args:
+        text:
+    """
 
     patterns = [r'\b(?i)'+'plan'+r'\b',
                 r'\b(?i)'+'programme'+r'\b',
@@ -212,6 +227,12 @@ df2['Check_Schemes'] = df2['Sent'].apply(prog_sent)
 
 
 def all_schemes(text, check):
+    """all_schemes.
+
+    Args:
+        text:
+        check:
+    """
 
     schemes = []
 
@@ -276,6 +297,11 @@ display(Image(png))
 
 
 def sent_subtree(text):
+    """sent_subtree.
+
+    Args:
+        text:
+    """
 
     # pattern match for schemes or initiatives
     patterns = [r'\b(?i)'+'plan'+r'\b',
@@ -353,6 +379,11 @@ df3 = pd.DataFrame(row_list)
 
 
 def rand_sent(df):
+    """rand_sent.
+
+    Args:
+        df:
+    """
 
     index = randint(0, len(df))
     print('Index = ', index)
@@ -366,6 +397,12 @@ def rand_sent(df):
 
 
 def output_per(df, out_col):
+    """output_per.
+
+    Args:
+        df:
+        out_col:
+    """
 
     result = 0
 
@@ -383,6 +420,11 @@ def output_per(df, out_col):
 
 
 def rule1(text):
+    """rule1.
+
+    Args:
+        text:
+    """
 
     doc = nlp(text)
 
@@ -463,6 +505,11 @@ output_per(df_rule1_all, 'Output')
 
 
 def rule2(text):
+    """rule2.
+
+    Args:
+        text:
+    """
 
     doc = nlp(text)
 
@@ -497,6 +544,12 @@ def rule2(text):
 
 
 def rule2_mod(text, index):
+    """rule2_mod.
+
+    Args:
+        text:
+        index:
+    """
 
     doc = nlp(text)
 
@@ -519,6 +572,11 @@ def rule2_mod(text, index):
 
 
 def rule1_mod(text):
+    """rule1_mod.
+
+    Args:
+        text:
+    """
 
     doc = nlp(text)
 
@@ -564,6 +622,11 @@ def rule1_mod(text):
 
 
 def rule3(text):
+    """rule3.
+
+    Args:
+        text:
+    """
 
     doc = nlp(text)
 
@@ -603,6 +666,12 @@ def rule3(text):
 
 
 def rule0(text, index):
+    """rule0.
+
+    Args:
+        text:
+        index:
+    """
 
     doc = nlp(text)
 
@@ -623,6 +692,11 @@ def rule0(text, index):
 
 
 def rule3_mod(text):
+    """rule3_mod.
+
+    Args:
+        text:
+    """
 
     doc = nlp(text)
 

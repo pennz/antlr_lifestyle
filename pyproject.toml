@@ -61,6 +61,7 @@ requests = "^2.24.0"
 toml = "^0.10.0"
 mkdocstrings = "^0.12.1"
 neovim = "^0.3.1"
+jedi = "^0.17.2"
 
 [tool.poetry.plugins."mkdocs.plugins"]
 mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"

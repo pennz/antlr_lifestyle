@@ -143,10 +143,10 @@ nlp = spacy.load('en_core_web_sm', disable=['ner', 'textcat'])
 
 
 def find_names(text):
-    """find_names.
+    """find_names of Prime minister of India.
 
     Args:
-        text:
+        text: to be searched.
     """
 
     names = []

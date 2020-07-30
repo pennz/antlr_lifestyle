@@ -113,8 +113,8 @@ df['Speech_clean'] = df['Speech'].apply(clean)
 # split sentences
 
 def sentences(text):
-    # split sentences and questions
-    text = re.split('[.?]', text)
+    # split sentences and questions. split with '.' and '?' ...
+    text = re.split('[.?!]', text)
     clean_sent = []
 
     for sent in text:
@@ -126,6 +126,7 @@ def sentences(text):
 # sentences
 df['sent'] = df['Speech_clean'].apply(sentences)
 
+# Sum: clean, split sentence (as the basic unit)
 # nlp_ie_08.py
 
 

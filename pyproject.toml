@@ -60,6 +60,7 @@ pytest-xdist = "^1.26"
 requests = "^2.24.0"
 toml = "^0.10.0"
 mkdocstrings = "^0.12.1"
+neovim = "^0.3.1"
 
 [tool.poetry.plugins."mkdocs.plugins"]
 mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"

@@ -9,6 +9,7 @@ PY_SRC=$(wildcard */**.py)
 CI ?= false
 TESTING ?= false
 RUN=poetry run
+PROJECT=lifestyle
 
 JUPYTER_PARAMS := --NotebookApp.token=greatday --NotebookApp.notebook_dir=/content/ --NotebookApp.allow_origin=* --NotebookApp.disable_check_xsrf=True --NotebookApp.iopub_data_rate_limit=10010000000 --NotebookApp.open_browser=False --allow-root
 TOXIC_DEP := coverage ipdb pyicu pycld2 polyglot textstat googletrans transformers==2.5.1 pandarallel catalyst==20.4.2 colorama parse pysnooper ripdb pytest-logger python_logging_rabbitmq
@@ -690,7 +691,12 @@ copy_setup: ## Copy the structure to another (python) project from base.
 	cp -r $(BASE)/pyproject.toml $(BASE)/config $(BASE)/docs $(BASE)/Makefile .
 	make setup
 	@git add pyproject.toml config docs Makefile
+
+.PHONY: copy_setup
+setup_dev: ## setup spacy
 	@$(RUN) python -m spacy download en_core_web_sm
+	@$(RUN) python -m ipykernel install --user --name py_$(PROJECT) \
+--display-name "Python $(PROJECT)" # https://ipython.readthedocs.io/en/stable/install/kernel_install.html
 
 gen_req:
 	@$(RUN) python -m pip freeze > requirements.txt

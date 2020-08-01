@@ -694,6 +694,7 @@ copy_setup: ## Copy the structure to another (python) project from base.
 
 gen_req:
 	@$(RUN) python -m pip freeze > requirements.txt
+	$(SED) -i '/_lifestyle/d' requirements.txt
 
 er:
 	$(RUN) python knowledge_graph/entity_relations.py

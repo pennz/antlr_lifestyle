@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   json_annotation: ^3.0.0
+  http: 
 
 
 
@@ -41,9 +42,9 @@ dev_dependencies:
   path: ^1.5.1
   test: ^1.6.0
 
-dependency_overrides:
-  json_serializable:
-    path: ../json_serializable
+#dependency_overrides:
+#  json_serializable:
+#    path: ../json_serializable
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

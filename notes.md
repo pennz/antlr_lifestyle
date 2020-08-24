@@ -1,25 +1,23 @@
 Important notes:
 What is needed? needed in life
 
-Added todo/shop list.
-Added thoughts
 
-
-Daily/weekly review.
-
-show statics.
-analyze. or KANBAN system. or we use another thing
+# landing pages
+- Added thoughts
+- todo
+- Daily/weekly review. show statics. analyze. or KANBAN system. or we use another thing 
 
 API , different parts of life.
 
-# todo
+# Project todo
 
 ## research paper
-how to enjoy life. So it can be better.
+how to enjoy life. So it can be better. (for the book in kindle Jin Jing)
 
 ## data structure define
+Ans: just input as lines of text describing what we have done today, it will be put to structured relational database, output graph data(a presentation)
 
-## client rest
+## client restful API (external)
 it could do thing for us (retrieve data for yout)
 
 ## we will need a datastorage thing. we just use mariadb. For this we just do pure sql, as I am learing this
@@ -82,7 +80,6 @@ and goals, you have a few new avenues to encourage habitual usage.
 
 ## learn from other application
 ### things
-
 **todo**
 You main thinking tool
 - Today

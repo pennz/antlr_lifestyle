@@ -1,0 +1,7 @@
+{
+  "name": "hight-charts-show",
+  "version": "1.0.0",
+  "dependencies": {
+    "highcharts-export-server": "^2.0.28"
+  }
+}

@@ -1,0 +1,3 @@
+#!/bin/bash
+#sed -n 's/.*\(https...gist.github[^>]*\)>.*/\1/p' abc | sed 's/\.js//' | sort | uniq | sed 's/.*\///' | xargs -I{} bash -c " echo \# {}; echo '\`\`\`python';  gist -r {}; echo '\`\`\`'"
+cat gist_list | xargs -I{} bash -c " echo \# {}; echo '\`\`\`python';  gist -r {}; echo '\`\`\`'"

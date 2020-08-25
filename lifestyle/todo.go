@@ -1,19 +1,20 @@
 package lifestyle
 
-type ToBe struct {
+type CalenderItem interface {
+	AddReminder(When)
+	Countdown() Time
 }
 
 // ToDo actions change the world.
 type ToDo interface {
-	_ToDo
-	logging
-	calenderItem
-	manage
-	tagee
+	CalenderItem
+	Manage
+	Tagee
+	ToDoRaw
 }
 
-type manage interface {
-	logging
+type Manage interface {
+	Logging
 	Review() string
 	Exalate()
 	Suspend()
@@ -22,12 +23,7 @@ type manage interface {
 	CheckMilestone()
 }
 
-type calenderItem interface {
-	AddReminder(When)
-	Countdown() Time
-}
-
-type logging interface {
+type Logging interface {
 	AddResourceUsage()
 	Serialize() // TODO find existing type
 	GetProcess()
@@ -35,20 +31,20 @@ type logging interface {
 
 // Tag for tag data classification, for class, we can use tag too
 type Tag string
-type tagee interface {
+type Tagee interface {
 	AddTag(Tag)
 	RemoveTag(Tag)
 }
 
 // DataOrganizer show your data in an organized way.
 type DataOrganizer interface {
-	Filter(Tag) []tagee
+	Filter(Tag) []Tagee
 	Export()
 	Import()
 	Sort()
 }
 
-type _ToDo interface {
+type ToDoRaw interface {
 	NewToDo() *ToDo
 	Do() Result
 	AddSteps()
@@ -56,7 +52,7 @@ type _ToDo interface {
 	AddRelated(Thing)
 }
 
-func newToDo() *Action {
+func NewToDo() *Action {
 	a := Action{ActionType: Actions.Will}
 	return &a
 }

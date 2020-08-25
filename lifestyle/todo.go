@@ -1,8 +1,10 @@
 package lifestyle
 
+import "time"
+
 type CalenderItem interface {
-	AddReminder(When)
-	Countdown() Time
+	AddReminder(time.Time)
+	Countdown() time.Time
 }
 
 // ToDo actions change the world.

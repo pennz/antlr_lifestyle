@@ -8,7 +8,7 @@ import (
 
 	//_ import driver
 	_ "github.com/lib/pq"
-	"github.com/pennz/antlr_lifestyle/lifestyle"
+	"gitlab.com/MrCue/antlr_lifestyle/lifestyle"
 )
 
 type Env struct {

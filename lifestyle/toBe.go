@@ -10,8 +10,8 @@ type ToBe struct {
 	*log.Logger
 }
 
-func (t *ToBe) AddReminder(_ time.Time) {
-	panic("not implemented") // TODO: Implement
+func (t *ToBe) AddReminder(when time.Time) {
+	t.Logger.Print(when)
 }
 
 func (t *ToBe) Countdown() time.Time {

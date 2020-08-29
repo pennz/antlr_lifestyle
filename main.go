@@ -8,7 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"
-	"github.com/pennz/antlr_lifestyle/model"
+	"gitlab.com/MrCue/antlr_lifestyle/model"
 
 	_ "github.com/heroku/x/hmetrics/onload"
 )

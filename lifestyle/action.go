@@ -1,16 +1,19 @@
 package lifestyle
 
+import "time"
+
 var Actions = newactionRegistry()
 
 type ActionType string
 type Result string
 type Method string
 
+// Action is any change you made to the world
 type Action struct {
 	Actor
 	to Receiver
 	ActionType
-	When
+	When time.Time
 	Why
 	How // method, no -> just your feeling when doing it
 	Method

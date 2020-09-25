@@ -1,5 +1,5 @@
 // +heroku goVersion go1.13
-module github.com/pennz/antlr_lifestyle
+module gitlab.com/MrCue/antlr_lifestyle
 
 go 1.13
 

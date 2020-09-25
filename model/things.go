@@ -3,7 +3,7 @@ package model
 import (
 	"database/sql"
 
-	"github.com/pennz/antlr_lifestyle/lifestyle"
+	"gitlab.com/MrCue/antlr_lifestyle/lifestyle"
 )
 
 // follow this tutorial https://www.alexedwards.net/blog/organising-database-access

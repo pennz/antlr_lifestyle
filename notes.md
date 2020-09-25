@@ -11,6 +11,8 @@ API , different parts of life.
 
 # Project todo
 
+## generate test cases
+
 ## research paper
 how to enjoy life. So it can be better. (for the book in kindle Jin Jing)
 
@@ -92,7 +94,7 @@ nice to have
 **goal tracking**
 - progress split
 - milestone
-- notes taking (automatically review)(GNU Cash like, accounting)
+- notes taking (automatically review / reminder)(GNU Cash like, accounting)
 
 ## technically
 Put to restful API, easier for exchange

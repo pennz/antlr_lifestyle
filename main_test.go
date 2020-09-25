@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	_ "github.com/heroku/x/hmetrics/onload"
-	"github.com/pennz/antlr_lifestyle/model"
 	"github.com/stretchr/testify/assert"
+	"gitlab.com/MrCue/antlr_lifestyle/model"
 )
 
 func TestGetThings(t *testing.T) {

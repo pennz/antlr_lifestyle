@@ -23,8 +23,6 @@ type thingDomainRegistry struct {
 	eternal   thingDomain
 }
 
-type Tag string
-
 // Thing describes a thingship between things
 type Thing struct {
 	thingType

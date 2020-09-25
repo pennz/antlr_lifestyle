@@ -179,29 +179,30 @@ class Photo {
 
 class MyHomePage extends StatelessWidget {
   final String title;
-	// Follow this tutorial https://medium.com/flutter-community/using-svg-in-flutter-3dcf7b1dd713
-	final String dogUrl = 'https://www.svgrepo.com/show/2046/dog.svg';
-	final String dogFoodUrl = 'https://www.svgrepo.com/show/3682/dog-food.svg';
+  // Follow this tutorial https://medium.com/flutter-community/using-svg-in-flutter-3dcf7b1dd713
+  final String dogUrl = 'https://www.svgrepo.com/show/2046/dog.svg';
+  final String dogFoodUrl = 'https://www.svgrepo.com/show/3682/dog-food.svg';
 
   MyHomePage({Key key, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: SvgPicture.string(bytes),
       appBar: AppBar(
         title: Text(title),
       ),
       body: Center(
         child: FloatingActionButton(
-					onPressed: () {
-						print('Thanks');
-					},
-					child: SvgPicture.network(
-						dogFoodUrl,
-						semanticsLabel: 'Feed button',
-						placeholderBuilder: (context) => Icon(Icons.error),
-					),
-				),
+          onPressed: () {
+            print('Thanks');
+          },
+          child: SvgPicture.network(
+            dogUrl,
+            semanticsLabel: 'Feed button',
+            placeholderBuilder: (context) => Icon(Icons.error),
+          ),
+        ),
 //        FutureBuilder<List<Photo>>(
 //        future: fetchPhotos(http.Client()),
 //        builder: (context, snapshot) {

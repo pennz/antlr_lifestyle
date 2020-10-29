@@ -62,3 +62,13 @@ dataset, then back to dataset.
 Follow datadog agent? Go just call python module?
 
 We use Javascript thing to show graph (html tools is more available, interactive graphs)
+
+# Components
+client: flutter for input of sentences (https better), output of the graph/statistics
+server: highcharts export server (only for UI) + nlp handling (nlp use python scapy) + (go or python? save to ) dataset
+- spaCy server https://spacy.io/universe/project/spacy-server
+
+Spacy Server:
+- docker pull neelkamath/spacy-server
+- https://hub.docker.com/r/neelkamath/spacy-server
+- docker pull neelkamath/spacy-server:2-en_core_web_sm-sense2vec

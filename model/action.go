@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/pennz/antlr_lifestyle/lifestyle"
+	"gitlab.com/MrCue/antlr_lifestyle/lifestyle"
 )
 
 func (DB) AllActions() ([]*lifestyle.Action, error) {

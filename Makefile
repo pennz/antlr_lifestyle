@@ -4,6 +4,7 @@
 export PATH := /nix/store/3ycgq0lva60yc2bw4qshmlsaqn0g90x4-nodejs-14.2.0/bin:$(HOME)/.local/bin:$(PWD)/bin:$(PATH)
 export DEBUG := $(DEBUG)
 export CC_TEST_REPORTER_ID := 501f2d3f82d0d671d4e2dab422e60140a9461aa51013ecca0e9b2285c1b4aa43 
+REPO_NAME=gitlab.com/MrCue/antlr_lifestyle
 
 PY_SRC=$(wildcard */**.py)
 CI ?= false
@@ -709,3 +710,12 @@ binder_after_run:
 	$(eval RUN :=)
 	@$(RUN) python -m spacy download en_core_web_sm
 	make er
+
+link_go_src:
+	mkdir -p $(GOPATH)/src/$$(dirname $(REPO_NAME))
+	ln -svf $(PWD) $(GOPATH)/src/$$(dirname $(REPO_NAME))
+	cd $(GOPATH)/src/$(REPO_NAME)
+
+  stage: test
+  script:
+    - go test -race $(go list . ./done | grep -v /vendor/)

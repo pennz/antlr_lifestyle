@@ -1,6 +1,6 @@
 package model
 
-import "github.com/pennz/antlr_lifestyle/lifestyle"
+import "gitlab.com/MrCue/antlr_lifestyle/lifestyle"
 
 func (DB) AllRelations() ([]*lifestyle.Relation, error) {
 	return nil, nil

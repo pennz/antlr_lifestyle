@@ -1,5 +1,13 @@
 .DEFAULT_GOAL := help
 
+GO_BUILD_ENV := CGO_ENABLED=0 GOOS=linux GOARCH=amd64
+DOCKER_BUILD=$(shell pwd)/.docker_build
+DOCKER_CMD=$(DOCKER_BUILD)/antlr_lifestyle
+
+$(DOCKER_CMD): clean
+	mkdir -p $(DOCKER_BUILD)
+	$(GO_BUILD_ENV) go build -v -o $(DOCKER_CMD) .
+
 #export LD_LIBRARY_PATH := $(PWD)/lib:$(LD_LIBRARY_PATH)
 export PATH := /nix/store/3ycgq0lva60yc2bw4qshmlsaqn0g90x4-nodejs-14.2.0/bin:$(HOME)/.local/bin:$(PWD)/bin:$(PATH)
 export DEBUG := $(DEBUG)
@@ -188,25 +196,6 @@ toxic: check install_dep ## Run toxic code (Not Debug).
 test_coor: update_code $(SRC) ## Test coordinator.
 	$(PY) -m pytest -k "test_generate_runner" tests/test_coord.py; cd .runners/intercept-resnet-384/ && $(PY) main.py
 
-.PHONY: clean
-clean: _clean ## Clean.
-	#-bash -c 'currentPpid=$$(pstree -spa $$$$ | $(SED) -n "2,3 p" |  cut -d"," -f 2 | cut -d" " -f 1); pgrep -f "rvs.sh" | sort | grep -v -e $$(echo $$currentPpid | $(SED) "s/\s\{1,\}/ -e /" ) -e $$$$ | xargs -I{} kill -9 {}'
-	-ps aux | grep "ncat .*lp" | grep -v "while" | grep -v "50001" | grep -v "grep" | tee /dev/tty | awk '{print $$2} ' | xargs -I{} kill -9 {}
-	-rm -rf __pycache__ mylogs dist/* build/*
-
-_clean:  ## Delete temporary files.
-	-@rm -rf build 2>/dev/null
-	-@rm -rf .coverage* 2>/dev/null
-	-@rm -rf dist 2>/dev/null
-	-@rm -rf .mypy_cache 2>/dev/null
-	-@rm -rf pip-wheel-metadata 2>/dev/null
-	-@rm -rf .pytest_cache 2>/dev/null
-	-@rm -rf src/*.egg-info 2>/dev/null
-	-@rm -rf src/mkdocstrings/__pycache__ 2>/dev/null
-	-@rm -rf scripts/__pycache__ 2>/dev/null
-	-@rm -rf site 2>/dev/null
-	-@rm -rf tests/__pycache__ 2>/dev/null
-	-@find . -name "*.rej" -delete 2>/dev/null
 
 
 .PHONY: submit
@@ -718,3 +707,19 @@ link_go_src:
 .PHONY: test
 test:
 	go test -race $(go list . ./done | grep -v /vendor/)
+
+.PHONY: clean
+clean:
+	rm -rf $(DOCKER_BUILD)
+
+heroku: $(DOCKER_CMD)
+	heroku container:push web
+
+all:
+	go test -coverprofile=c.out ./...
+
+debug:
+	dlv test --build-flags '-N -l'
+
+d:
+	go_add_debug

@@ -72,9 +72,8 @@ IS_CENTOS=type firewall-cmd >/dev/null 2>&1
 _: test
 	@echo "DONE $@"
 
-.PHONY: test
-test: ctr ## Main test function, run coverage test.
-	@echo "DONE $@"
+#test: ctr ## Main test function, run coverage test.
+#	@echo "DONE $@"
 
 .PHONY: test_bert_torch
 test_bert_torch: pytest ## Test bert written in pytorch.
@@ -716,6 +715,6 @@ link_go_src:
 	ln -svf $(PWD) $(GOPATH)/src/$$(dirname $(REPO_NAME))
 	cd $(GOPATH)/src/$(REPO_NAME)
 
-  stage: test
-  script:
-    - go test -race $(go list . ./done | grep -v /vendor/)
+.PHONY: test
+test:
+	go test -race $(go list . ./done | grep -v /vendor/)

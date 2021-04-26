@@ -17,6 +17,9 @@ how to enjoy life. So it can be better. (for the book in kindle Jin Jing 精进)
 
 ## data structure define
 Ans: just input as lines of text describing what we have done today, it will be put to structured relational database, output graph data(a presentation)
+- So language should be defined.
+- Use the extract tool, get the language we know. Then process all the information.
+- Maybe the social network. Fake news. Some model to show the platform how changing our lives.
 
 ## client restful API (external)
 it could do thing for us (retrieve data for yout)
@@ -112,3 +115,12 @@ and goals, you have a few new avenues to encourage habitual usage.
 - Two, memories. Bring up my thoughts from a week, a month ago. Show me how far I've progressed.
 - Three, blatantly ask what they could have done today to make their day even better. Then, ask them to do that tomorrow. And check the next day and ask about their progress again. Celebrate with them when they take a step forward. Raise them up when they fail.
 
+## know the social world
+social ladder
+how the gap is generated
+
+Q: Do we just use data to show the fact?
+
+## tools
+Umple can be used to generated code (first do real coding)
+then we do things.

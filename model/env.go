@@ -37,6 +37,7 @@ func (fdb *fakeDB) AllThings() ([]*lifestyle.Thing, error) {
 	things := make([]*lifestyle.Thing, 0)
 	things = append(things, &lifestyle.Thing{Name: "No"})
 	things = append(things, &lifestyle.Thing{Name: "Yes"})
+	things = append(things, &lifestyle.Thing{Name: "?"})
 	return things, nil
 }
 func (fdb *fakeDB) AllActions() ([]*lifestyle.Action, error) {

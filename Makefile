@@ -709,7 +709,7 @@ clean:
 	rm -rf $(DOCKER_BUILD)
 
 heroku: $(DOCKER_CMD)
-	heroku container:push web
+	heroku container:push web -a go-life-demo
 
 all:
 	go test -coverprofile=c.out ./...

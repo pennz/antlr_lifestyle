@@ -500,10 +500,6 @@ pydoc: setup_venv install_gitbook kr ## Set up pydoc and generate gitbook docume
 sync_result: ## sync_result
 	while true; do git commit -asm "Good game" --no-edit; git pull; git push; sleep 10; done
 
-.PHONY: d
-d: ## Git diff.
-	git diff; git diff --cached
-
 .PHONY: install_template
 install_template: ## install_template
 	git submodule update --init
@@ -721,5 +717,6 @@ all:
 debug:
 	dlv test --build-flags '-N -l'
 
-d:
+.PHONY: d
+d: ## Add debug trace points.
 	go_add_debug

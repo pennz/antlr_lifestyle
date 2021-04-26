@@ -145,6 +145,7 @@ func addModelFunc2Router(r *gin.Engine, env model.Env) {
 
 		c.String(200, s)
 	})
+
 	r.GET("/relations", func(c *gin.Context) {
 		ts, err := env.DS.AllRelations()
 		if err != nil {

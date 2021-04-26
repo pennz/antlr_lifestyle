@@ -27,7 +27,7 @@ it could do thing for us (retrieve data for yout)
 ## we will need a datastorage thing. we just use mariadb. For this we just do pure sql, as I am learing this.
 
 - simple example.
-- pipline needs do work first.
+- pipeline needs do work first.
 - script for test local (faster loop)
 - let CI run normal tests
 - add document generation

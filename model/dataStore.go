@@ -6,6 +6,7 @@ import (
 	"gitlab.com/MrCue/antlr_lifestyle/lifestyle"
 )
 
+// DataStore for our website
 type DataStore interface {
 	AllThings() ([]*lifestyle.Thing, error)
 	AllActions() ([]*lifestyle.Action, error)

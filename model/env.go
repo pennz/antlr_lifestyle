@@ -8,6 +8,7 @@ import (
 
 	//_ import driver
 	_ "github.com/lib/pq"
+	"gitlab.com/MrCue/antlr_lifestyle/impl"
 	"gitlab.com/MrCue/antlr_lifestyle/lifestyle"
 )
 
@@ -51,7 +52,11 @@ func (fdb *fakeDB) Action(string) (*lifestyle.Action, error) {
 	return nil, nil
 }
 func (fdb *fakeDB) Relation(string) (*lifestyle.Relation, error) { return nil, nil }
-func (fdb *fakeDB) Thing(string) (*lifestyle.Thing, error)       { return nil, nil }
+
+func (fdb *fakeDB) Thing(string) (*lifestyle.Thing, error) {
+	err := &impl.ImplementationError{Msg: "Function Not Implemented"}
+	return nil, err
+}
 
 func (fdb *fakeDB) AllRelations() ([]*lifestyle.Relation, error) {
 	relations := make([]*lifestyle.Relation, 0)

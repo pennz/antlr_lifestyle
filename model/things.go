@@ -31,6 +31,26 @@ func AllThings(db *sql.DB) ([]*lifestyle.Thing, error) {
 
 }
 
+func (d *DB) AllThings() ([]*lifestyle.Thing, error) {
+	rows, err := d.Query("SELECT * from thing")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	things := make([]*lifestyle.Thing, 0)
+	for rows.Next() {
+		t := new(lifestyle.Thing)
+		err := rows.Scan(&(t.Name))
+		if err != nil {
+			return things, err
+		}
+		things = append(things, t)
+	}
+	err = rows.Err()
+	return things, err
+}
+
 // 2. dependency injection
 // we use a Env struct store all our database related thing
 // then function will be related to that struct.

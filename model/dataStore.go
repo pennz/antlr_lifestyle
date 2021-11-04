@@ -6,6 +6,10 @@ import (
 	"gitlab.com/MrCue/antlr_lifestyle/lifestyle"
 )
 
+type DB struct {
+	*sql.DB // https://stackoverflow.com/questions/44406077/golang-invalid-receiver-type-in-method-func
+}
+
 // DataStore for our website
 type DataStore interface {
 	AllThings() ([]*lifestyle.Thing, error)
@@ -19,8 +23,4 @@ type DataStore interface {
 	AddThing(*lifestyle.Thing) error
 	AddAction(*lifestyle.Action) error
 	AddRelation(*lifestyle.Relation) error
-}
-
-type DB struct {
-	*sql.DB
 }

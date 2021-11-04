@@ -94,16 +94,16 @@ func GetDB() (Env, error) {
 	return dataEnv, err
 }
 
-func getDB() (*sql.DB, error) {
-    // https://devcenter.heroku.com/articles/heroku-postgresql#provisioning-heroku-postgres
-	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL")) 
+func getDB() (DB, error) {
+	// https://devcenter.heroku.com/articles/heroku-postgresql#provisioning-heroku-postgres
+	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Fatal(err)
 	}
-	return db, nil
+	return DB{db}, nil
 }
 
-func create() *sql.DB {
+func create() DB {
 	//if err := db.PingContext(ctx); err != nil {
 	//	log.Fatal(err)
 	//}

@@ -105,7 +105,7 @@ func setupRouter() *gin.Engine {
 
 // parse_do call python? to parse
 func parse_do(deeds []string) error {
-	log.Fatal(deeds)
+	log.Println(deeds)
 	return nil
 }
 
@@ -114,6 +114,7 @@ func get_data(c *gin.Context) (map[string][]string, error) {
 	v, ok := q["do"]
 	if ok {
 		parse_do(v)
+		env.DS.AddAction(Action{ActionType:"TestType"})
 	}
 
 	return q, nil

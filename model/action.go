@@ -12,8 +12,25 @@ func AllActions(db *sql.DB) ([]*lifestyle.Action, error) {
 }
 
 func (d *DB) AllActions() ([]*lifestyle.Action, error) {
-	return nil, nil
+	rows, err := d.Query("SELECT * from action")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	actions := make([]*lifestyle.Action, 0)
+	for rows.Next() {
+		t := new(lifestyle.Action)
+		err := rows.Scan(&(t.ActionType))
+		if err != nil {
+			return actions, err
+		}
+		actions = append(actions, t)
+	}
+	err = rows.Err()
+	return actions, err
 }
+
 func (d *DB) Action(string) (*lifestyle.Action, error) {
 	return nil, nil
 }

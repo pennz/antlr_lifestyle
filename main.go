@@ -78,7 +78,7 @@ func testResty() {
 
 func main() {
 	testResty()
-	env, err := model.GetFakeEnv()
+	env, err := model.GetDB()
 	if err != nil {
 		log.Fatal(err)
 	}

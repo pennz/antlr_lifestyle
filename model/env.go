@@ -81,20 +81,22 @@ func GetFakeEnv() (Env, error) {
 // GetDB is like factory, create new one if not there
 func GetDB() (Env, error) {
 	var err error = nil
+	create()
 	if dataEnv.DS == nil {
 		db, err := getDB()
 		if err != nil {
 			log.Fatal(err)
 		}
 		fmt.Println(db)
-		dataEnv = Env{&fakeDB{}}
+		dataEnv = Env{&db}
 	}
 
 	return dataEnv, err
 }
 
 func getDB() (*sql.DB, error) {
-	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+    // https://devcenter.heroku.com/articles/heroku-postgresql#provisioning-heroku-postgres
+	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL")) 
 	if err != nil {
 		log.Fatal(err)
 	}

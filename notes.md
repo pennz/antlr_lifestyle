@@ -5,7 +5,7 @@ What is needed? needed in life
 # landing pages
 - Added thoughts
 - todo
-- Daily/weekly review. show statics. analyze. or KANBAN system. or we use another thing 
+- Daily/weekly review. Show statics. analyze. or KANBAN system. or we use another thing 
 
 API , different parts of life.
 

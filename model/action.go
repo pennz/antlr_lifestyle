@@ -35,7 +35,7 @@ func (d *DB) Action(string) (*lifestyle.Action, error) {
 	return nil, nil
 }
 func (d *DB) AddAction(action *lifestyle.Action) error {
-	stmt, err := d.Prepare("INSERT INTO action(name) VALUES(?)")
+	stmt, err := d.Prepare("INSERT INTO action(name) VALUES($1)")
 	if err != nil {
 		return err
 	}

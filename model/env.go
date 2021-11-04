@@ -49,9 +49,13 @@ func (fdb *fakeDB) AllActions() ([]*lifestyle.Action, error) {
 }
 
 func (fdb *fakeDB) Action(string) (*lifestyle.Action, error) {
-	return nil, nil
+	err := &impl.ImplementationError{Msg: "Function Not Implemented"}
+	return nil, err
 }
-func (fdb *fakeDB) Relation(string) (*lifestyle.Relation, error) { return nil, nil }
+func (fdb *fakeDB) Relation(string) (*lifestyle.Relation, error) {
+	err := &impl.ImplementationError{Msg: "Function Not Implemented"}
+	return nil, err
+}
 
 func (fdb *fakeDB) Thing(string) (*lifestyle.Thing, error) {
 	err := &impl.ImplementationError{Msg: "Function Not Implemented"}

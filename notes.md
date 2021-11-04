@@ -9,14 +9,16 @@ What is needed? needed in life
 
 API , different parts of life.
 
-# Project todo
+## API
 
+# Project ToDo
 
 ## research paper
-how to enjoy life. So it can be better. (for the book in kindle Jin Jing 精进)
+How to enjoy life. So it can be better. (for the reference book in kindle Jin Jing 精进)
 
 ## data structure define
 Ans: just input as lines of text describing what we have done today, it will be put to structured relational database, output graph data(a presentation)
+
 - So language should be defined.
 - Use the extract tool, get the language we know. Then process all the information.
 - Maybe the social network. Fake news. Some model to show the platform how changing our lives.
@@ -24,7 +26,7 @@ Ans: just input as lines of text describing what we have done today, it will be 
 ## client restful API (external)
 it could do thing for us (retrieve data for yout)
 
-## we will need a datastorage thing. we just use mariadb. For this we just do pure sql, as I am learing this.
+## we will need a datastorage thing. We just use mariadb. For this we just do pure sql, as I am learing this.
 
 - simple example.
 - pipeline needs do work first.

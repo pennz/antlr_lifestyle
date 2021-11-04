@@ -120,10 +120,15 @@ func get_data(c *gin.Context) (map[string][]string, error) {
 	v, ok := q["do"]
 	if ok {
 		parse_do(v)
-		env.DS.AddAction(&lifestyle.Action{ActionType: "TestType"})
+		err = env.DS.AddAction(&lifestyle.Action{ActionType: "TestType"})
+	}
+	if err != nil {
+		log.Println(err)
+	} else {
+		log.Println("AddAction is fine")
 	}
 
-	return q, nil
+	return q, err
 }
 
 func addModelFunc2Router(r *gin.Engine, env model.Env) {

@@ -13,7 +13,8 @@ import (
 )
 
 type Env struct {
-	DS DataStore
+	DS     DataStore
+	logger *log.Logger
 }
 
 var dataEnv Env
@@ -75,20 +76,20 @@ func (fdb *fakeDB) AddRelation(*lifestyle.Relation) error { return nil }
 
 // GetFakeEnv get it for test
 func GetFakeEnv() (Env, error) {
-	return Env{&fakeDB{}}, nil
+	return Env{&fakeDB{}, nil}, nil
 }
 
 // GetDB is like factory, create new one if not there
 func GetDB() (Env, error) {
 	var err error = nil
-	create()
+	//create() // we have created this
 	if dataEnv.DS == nil {
 		db, err := getDB()
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(db)
-		dataEnv = Env{&db}
+		dataEnv = Env{&db, log.Default()}
+		dataEnv.logger.Println(db)
 	}
 
 	return dataEnv, err
@@ -100,7 +101,7 @@ func getDB() (DB, error) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return DB{db}, nil
+	return DB{db}, db.Ping()
 }
 
 func create() DB {

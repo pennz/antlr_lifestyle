@@ -2,6 +2,7 @@ package model
 
 import (
 	"database/sql"
+	"log"
 
 	"gitlab.com/MrCue/antlr_lifestyle/lifestyle"
 )
@@ -11,9 +12,16 @@ import (
 // use db as a global variable in the model package, then
 // we can use that to all the data retrieval
 func AllThings(db *sql.DB) ([]*lifestyle.Thing, error) {
-	rows, err := db.Query("SELECT * from thing")
+	stmt, err := db.Prepare("SELECT * from thing")
+
 	if err != nil {
 		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query()
+	if err != nil {
+		log.Fatal(err)
 	}
 	defer rows.Close()
 

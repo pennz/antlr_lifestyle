@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"
+	"gitlab.com/MrCue/antlr_lifestyle/lifestyle"
 	"gitlab.com/MrCue/antlr_lifestyle/model"
 
 	_ "github.com/heroku/x/hmetrics/onload"
@@ -110,11 +111,16 @@ func parse_do(deeds []string) error {
 }
 
 func get_data(c *gin.Context) (map[string][]string, error) {
+	env, err := model.GetDB()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	q := c.Request.URL.Query()
 	v, ok := q["do"]
 	if ok {
 		parse_do(v)
-		env.DS.AddAction(Action{ActionType:"TestType"})
+		env.DS.AddAction(&lifestyle.Action{ActionType: "TestType"})
 	}
 
 	return q, nil

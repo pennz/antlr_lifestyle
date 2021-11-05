@@ -1,7 +1,7 @@
 package model
 
 import (
-	"gitlab.com/MrCue/antlr_lifestyle/lifestyle"
+	"github.com/pennz/antlr_lifestyle/lifestyle"
 )
 
 func (d *DB) Thing(string) (*lifestyle.Thing, error) {

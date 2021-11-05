@@ -34,7 +34,7 @@ it could do thing for us (retrieve data for yout)
 - let CI run normal tests
 - add document generation
 - image generation part( some message queue can be use, to view real time data) (knowledge graph)
-- grading part
+- grading part (feedback)
 - IDE for input(later), we just use NLP first, should be easier
 - learn from bill board grammar, then just do it with antlr. For basic dataset operation, just a wrapper for SQL. Or we just add new items automatically.
 - after we parsed our input, we put it to related dataset, then data analysis.
@@ -101,11 +101,18 @@ Spacy Server:
 - https://hub.docker.com/r/neelkamath/spacy-server
 - docker pull neelkamath/spacy-server:2-en_core_web_sm-sense2vec
 
-# Ideal
-- plan your day, and tracking the progress
+# Ideas
 
-    [review for Reflectly](https://medium.com/@bigdchang/reflectly-product-analysis-cd584a2aa98a)
-    and the suggestion from this guy:
+Just some list:
+- domain model of inner thoughts ( your feeling now, your body)
+- also you can keep track important things/persons to you
+- plan your day, and tracking the progress
+- data view/visualization/feedback of your daily deeds
+- thinking tools (so need to get the meta-logic done first)
+
+## comparison
+[review for Reflectly](https://medium.com/@bigdchang/reflectly-product-analysis-cd584a2aa98a)
+And the great suggestion from this guy:
 Find out your user's end goals/wishes/ambitions. Ask questions that help them
 reflect about their progress and life. Create a best friend/father/mother
 figure in your user's life that he or she never had.
@@ -123,6 +130,23 @@ how the gap is generated
 
 Q: Do we just use data to show the fact?
 
+### headspace
+- intro 
+- goal setting (single)
+- breathing , conversations ,feedback
+- landing pages
+
 ## tools
 Umple can be used to generated code (first do real coding)
 then we do things.
+
+
+# developing
+```shell
+heroku pg:psql
+```
+to connect to the dataset, before which you should have postgresql installed in you env
+
+11.05 -> can do dataset insert now
+
+then function logic

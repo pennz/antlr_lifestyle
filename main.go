@@ -8,8 +8,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"
-	"gitlab.com/MrCue/antlr_lifestyle/lifestyle"
-	"gitlab.com/MrCue/antlr_lifestyle/model"
+	"github.com/pennz/antlr_lifestyle/lifestyle"
+	"github.com/pennz/antlr_lifestyle/logic"
+	"github.com/pennz/antlr_lifestyle/model"
 
 	_ "github.com/heroku/x/hmetrics/onload"
 )
@@ -90,6 +91,7 @@ func main() {
 		log.Fatal("$PORT must be set")
 	}
 
+	go logic.FeedbackLoop("test-logs_topic", []string{"anonymous.info"})
 	r := setupRouter()
 	addModelFunc2Router(r, env)
 	r.Run(":" + port)

@@ -3,7 +3,7 @@ package model
 import (
 	"database/sql"
 
-	"gitlab.com/MrCue/antlr_lifestyle/lifestyle"
+	"github.com/pennz/antlr_lifestyle/lifestyle"
 )
 
 type DB struct {

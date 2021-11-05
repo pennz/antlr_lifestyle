@@ -11,7 +11,7 @@ func AllActions(db *sql.DB) ([]*lifestyle.Action, error) {
 }
 
 func (d *DB) AllActions() ([]*lifestyle.Action, error) {
-	rows, err := d.Query("SELECT * from action")
+	rows, err := d.Query("SELECT name from action")
 	if err != nil {
 		return nil, err
 	}

@@ -19,11 +19,16 @@ github.com/manucorporat/sse
 github.com/mattn/go-colorable
 # github.com/mattn/go-isatty v0.0.0-20150814002629-7fcbc72f853b
 github.com/mattn/go-isatty
+# github.com/pennz/amqp v0.1.0
+github.com/pennz/amqp/session
+github.com/pennz/amqp/utils
 # github.com/pmezard/go-difflib v1.0.0
 github.com/pmezard/go-difflib/difflib
+# github.com/streadway/amqp v0.0.0-20200108173154-1c71cc93ed71
+github.com/streadway/amqp
 # github.com/stretchr/testify v1.3.0
 github.com/stretchr/testify/assert
-# golang.org/x/net v0.0.0-20200226121028-0de0cce0169b
+# golang.org/x/net v0.0.0-20211101193420-4a448f8816b3
 golang.org/x/net/context
 golang.org/x/net/publicsuffix
 # gopkg.in/bluesuncorp/validator.v5 v5.9.1

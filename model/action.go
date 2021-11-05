@@ -2,7 +2,6 @@ package model
 
 import (
 	"database/sql"
-	"log"
 
 	"gitlab.com/MrCue/antlr_lifestyle/lifestyle"
 )
@@ -40,20 +39,11 @@ func (d *DB) AddActionType(action_type lifestyle.ActionType) (int64, error) {
 	if err != nil {
 		return -1, err
 	}
-	res, err := stmt.Exec(action_type)
+	_, err = stmt.Exec(action_type)
 	if err != nil {
 		return -1, err
 	}
-	lastId, err := res.LastInsertId()
-	if err != nil {
-		return -1, err
-	}
-	rowCnt, err := res.RowsAffected()
-	if err != nil {
-		return -1, err
-	}
-	log.Printf("ID = %d, affected = %d\n", lastId, rowCnt)
-	return lastId, nil
+	return 1, nil
 }
 
 func (d *DB) AddAction(action *lifestyle.Action) error {
@@ -67,18 +57,9 @@ func (d *DB) AddAction(action *lifestyle.Action) error {
 	if err != nil {
 		return err
 	}
-	res, err := stmt.Exec(action.ActionType, lastActionTypeId)
+	_, err = stmt.Exec(action.ActionType, lastActionTypeId)
 	if err != nil {
 		return err
 	}
-	lastId, err := res.LastInsertId()
-	if err != nil {
-		return err
-	}
-	rowCnt, err := res.RowsAffected()
-	if err != nil {
-		return err
-	}
-	log.Printf("ID = %d, affected = %d\n", lastId, rowCnt)
 	return nil
 }

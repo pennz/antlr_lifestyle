@@ -106,6 +106,7 @@ func create() DB {
 	//if err := db.PingContext(ctx); err != nil {
 	//	log.Fatal(err)
 	//}
+
 	db, err := getDB()
 	if err != nil {
 		log.Fatal(err)
@@ -120,17 +121,17 @@ func create() DB {
 	sqlCreateStr := `
 CREATE TABLE thing (
   id SERIAL,
-  name varchar(255),
+  name VARCHAR(255),
   PRIMARY KEY (id)
 );
 CREATE TABLE thing_type (
   id SERIAL,
-  name varchar(255),
+  name VARCHAR(255),
   PRIMARY KEY (id)
 );
 CREATE TABLE thing_domain (
   id SERIAL,
-  name varchar(255),
+  name VARCHAR(255),
   PRIMARY KEY (id)
 );
 CREATE TABLE status (
@@ -139,22 +140,22 @@ CREATE TABLE status (
 );
 CREATE TABLE tag (
   id SERIAL,
-  name varchar(255),
+  name VARCHAR(255),
   PRIMARY KEY (id)
 );
 CREATE TABLE action (
   id SERIAL,
-  name varchar(255),
+  name VARCHAR(255),
   PRIMARY KEY (id)
 );
 CREATE TABLE action_type (
   id SERIAL,
-  name varchar(255),
+  name VARCHAR(255),
   PRIMARY KEY (id)
 );
 CREATE TABLE relation (
   id SERIAL,
-  name varchar(255),
+  name VARCHAR(255),
   from_id int NOT NULL,
   to_id int NOT NULL,
   PRIMARY KEY (id),
@@ -163,18 +164,18 @@ CREATE TABLE relation (
 );
 CREATE TABLE relation_type (
   id SERIAL,
-  name varchar(255),
+  name VARCHAR(255),
   PRIMARY KEY (id)
 );
 CREATE TABLE relation_meta_type (
   id SERIAL,
   reciprocal boolean,
-  meta_name varchar(255),
+  meta_name VARCHAR(255),
   PRIMARY KEY (id)
 );
 CREATE TABLE relation_meta_amount_type (
   id SERIAL,
-  name varchar(255),
+  name VARCHAR(255),
   PRIMARY KEY (id)
 );
 `

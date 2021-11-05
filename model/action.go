@@ -34,12 +34,40 @@ func (d *DB) AllActions() ([]*lifestyle.Action, error) {
 func (d *DB) Action(string) (*lifestyle.Action, error) {
 	return nil, nil
 }
+
+func (d *DB) AddActionType(action_type lifestyle.ActionType) (int64, error) {
+	stmt, err := d.Prepare("INSERT INTO action_type (name) VALUES($1)")
+	if err != nil {
+		return -1, err
+	}
+	res, err := stmt.Exec(action_type)
+	if err != nil {
+		return -1, err
+	}
+	lastId, err := res.LastInsertId()
+	if err != nil {
+		return -1, err
+	}
+	rowCnt, err := res.RowsAffected()
+	if err != nil {
+		return -1, err
+	}
+	log.Printf("ID = %d, affected = %d\n", lastId, rowCnt)
+	return lastId, nil
+}
+
 func (d *DB) AddAction(action *lifestyle.Action) error {
-	stmt, err := d.Prepare("INSERT INTO action(name) VALUES($1)")
+	debugType := "DEBUG"
+	lastActionTypeId, err := d.AddActionType(lifestyle.ActionType(debugType))
 	if err != nil {
 		return err
 	}
-	res, err := stmt.Exec(action.ActionType)
+
+	stmt, err := d.Prepare("INSERT INTO action (name, action_type_id) VALUES($1, $2)")
+	if err != nil {
+		return err
+	}
+	res, err := stmt.Exec(action.ActionType, lastActionTypeId)
 	if err != nil {
 		return err
 	}

@@ -13,5 +13,6 @@ require (
 	github.com/mattn/go-isatty v0.0.0-20150814002629-7fcbc72f853b // indirect
 	github.com/pennz/amqp v0.1.0
 	github.com/stretchr/testify v1.3.0
+	github.com/ugorji/go/codec v1.2.6 // indirect
 	gopkg.in/bluesuncorp/validator.v5 v5.9.1 // indirect
 )

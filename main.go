@@ -92,6 +92,8 @@ func main() {
 	}
 
 	go logic.FeedbackLoop("test-logs_topic", []string{"anonymous.info"})
+	logic.TestCodec()
+
 	r := setupRouter()
 	addModelFunc2Router(r, env)
 	r.Run(":" + port)

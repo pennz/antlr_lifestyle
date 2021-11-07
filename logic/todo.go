@@ -9,6 +9,7 @@ import (
 
 	"github.com/pennz/amqp/session"
 	"github.com/pennz/amqp/utils"
+	"github.com/ugorji/go/codec"
 )
 
 // FeedbackLoop works be repetition, and self score, post-moterm analysis
@@ -93,7 +94,7 @@ func FeedbackLoop(queueName string, routingKeys []string) {
 			log.Printf("[R] Received tag:%d body:%s", d.DeliveryTag, d.Body)
 			dotCount := bytes.Count(d.Body, []byte("."))
 			t := time.Duration(dotCount)
-			log.Printf("[W] Waiting for handling the message.Time estimated: %v\n", t*time.Second)
+			log.Printf("[W] Waiting for handling the message. Time estimated: %v\n", t*time.Second)
 			time.Sleep(t * time.Second)
 			log.Printf("[W] Working done for %v\n", t*time.Second)
 
@@ -112,15 +113,15 @@ func FeedbackLoop(queueName string, routingKeys []string) {
 	*/
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
-
-	go func() {
+	exitOnInterrupt := func() {
 		for sig := range c {
 			// sig is a ^C, handle it
 			log.Printf("[R] %v received.\n", sig)
 			forever <- true // main routine can go now, is will also ask other goroutines to exit
 			break           // just one ^C is enough
 		}
-	}()
+	}
+	go exitOnInterrupt()
 	<-forever
 }
 
@@ -138,4 +139,20 @@ func DayRecording() {
 // to make things more clear
 // let you think
 func Prompt() {
+}
+
+type A struct {
+	I int
+	S string
+}
+type B float64
+
+var v1 A
+
+func TestCodec() {
+	var b []byte = make([]byte, 0, 64)
+	var h codec.Handle = new(codec.JsonHandle)
+	var enc *codec.Encoder = codec.NewEncoderBytes(&b, h)
+	var err error = enc.Encode(v1)
+	log.Println(err)
 }

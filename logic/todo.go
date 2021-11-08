@@ -1,14 +1,13 @@
 package logic
 
 import (
-	"bytes"
 	"log"
 	"os"
 	"os/signal"
-	"time"
 
 	"github.com/pennz/amqp/session"
 	"github.com/pennz/amqp/utils"
+	"github.com/streadway/amqp"
 	"github.com/ugorji/go/codec"
 )
 
@@ -91,14 +90,10 @@ func FeedbackLoop(queueName string, routingKeys []string) {
 
 	messageLoopHandler := func() {
 		for d := range msgs {
-			log.Printf("[R] Received tag:%d body:%s", d.DeliveryTag, d.Body)
-			dotCount := bytes.Count(d.Body, []byte("."))
-			t := time.Duration(dotCount)
-			log.Printf("[W] Waiting for handling the message. Time estimated: %v\n", t*time.Second)
-			time.Sleep(t * time.Second)
-			log.Printf("[W] Working done for %v\n", t*time.Second)
 
-			d.Ack(false)
+			handleMessage(d)
+			err := d.Ack(false)
+			log.Println(err)
 		}
 	}
 	go messageLoopHandler()
@@ -121,6 +116,13 @@ func FeedbackLoop(queueName string, routingKeys []string) {
 			break           // just one ^C is enough
 		}
 	}
+	testCodecEncode()
+	err = s.Publish("test-logs_topic", "anonymous.info", b)
+	utils.FailOnError(err, "[S] Failed to publish a message")
+	err = s.Publish("test-logs_topic", "anonymous.info", b)
+	utils.FailOnError(err, "[S] Failed to publish a message")
+	err = s.Publish("test-logs_topic", "anonymous.info", b)
+	utils.FailOnError(err, "[S] Failed to publish a message")
 	go exitOnInterrupt()
 	<-forever
 }
@@ -148,11 +150,25 @@ type A struct {
 type B float64
 
 var v1 A
+var b []byte = make([]byte, 0, 64)
 
-func TestCodec() {
-	var b []byte = make([]byte, 0, 64)
-	var h codec.Handle = new(codec.JsonHandle)
+func testCodecEncode() {
+	v1.S = "Testing Now."
+	var h codec.Handle = new(codec.MsgpackHandle)
 	var enc *codec.Encoder = codec.NewEncoderBytes(&b, h)
 	var err error = enc.Encode(v1)
 	log.Println(err)
+}
+
+func handleMessage(d amqp.Delivery) {
+	log.Printf("[R] Received tag:%d body:%s", d.DeliveryTag, d.Body)
+
+	var v1Decoded A
+	var h codec.Handle = new(codec.MsgpackHandle)
+
+	var decoder *codec.Decoder = codec.NewDecoderBytes(d.Body, h)
+	var err error = decoder.Decode(&v1Decoded)
+	log.Println(err)
+
+	log.Printf("[R] Decoded: %s\n", v1Decoded.S)
 }

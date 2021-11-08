@@ -1,6 +1,7 @@
 package logic
 
 import (
+	"errors"
 	"log"
 	"os"
 	"os/signal"
@@ -10,6 +11,30 @@ import (
 	"github.com/streadway/amqp"
 	"github.com/ugorji/go/codec"
 )
+
+var (
+	v1      A
+	b       []byte         = make([]byte, 0, 64)
+	h       codec.Handle   = new(codec.MsgpackHandle)
+	enc     *codec.Encoder // = codec.NewEncoderBytes(&b, h)
+	decoder *codec.Decoder //= codec.NewDecoderBytes(nil, h)
+)
+
+func codecHandlerConfig() error {
+	//h.WriterBufferSize = 8192
+	//h.ReaderBufferSize = 8192
+	msgpackHandle, ok := h.(*codec.MsgpackHandle)
+
+	if !ok {
+		return errors.New("Type assertions failed for codec.MsgpackHandle to codec.MsgpackHandle.")
+	}
+	msgpackHandle.ReaderBufferSize = 1024
+	msgpackHandle.WriterBufferSize = 1024
+
+	enc = codec.NewEncoderBytes(&b, h)
+	decoder = codec.NewDecoderBytes(nil, h)
+	return nil
+}
 
 // FeedbackLoop works be repetition, and self score, post-moterm analysis
 // in the feedback, it is all the actions
@@ -149,13 +174,11 @@ type A struct {
 }
 type B float64
 
-var v1 A
-var b []byte = make([]byte, 0, 64)
-
 func testCodecEncode() {
 	v1.S = "Testing Now."
-	var h codec.Handle = new(codec.MsgpackHandle)
-	var enc *codec.Encoder = codec.NewEncoderBytes(&b, h)
+	v1.I += 1
+	//var h codec.Handle = new(codec.MsgpackHandle)
+	enc.ResetBytes(&b)
 	var err error = enc.Encode(v1)
 	log.Println(err)
 }
@@ -164,11 +187,9 @@ func handleMessage(d amqp.Delivery) {
 	log.Printf("[R] Received tag:%d body:%s", d.DeliveryTag, d.Body)
 
 	var v1Decoded A
-	var h codec.Handle = new(codec.MsgpackHandle)
-
-	var decoder *codec.Decoder = codec.NewDecoderBytes(d.Body, h)
+	decoder.ResetBytes(d.Body)
 	var err error = decoder.Decode(&v1Decoded)
 	log.Println(err)
 
-	log.Printf("[R] Decoded: %s\n", v1Decoded.S)
+	log.Printf("[R] Decoded: %v\n", v1Decoded)
 }

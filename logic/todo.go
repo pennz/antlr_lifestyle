@@ -16,7 +16,7 @@ var (
 	v1      A
 	b       []byte         = make([]byte, 0, 64)
 	h       codec.Handle   = new(codec.MsgpackHandle)
-	enc     *codec.Encoder // = codec.NewEncoderBytes(&b, h)
+	encoder     *codec.Encoder // = codec.NewEncoderBytes(&b, h)
 	decoder *codec.Decoder //= codec.NewDecoderBytes(nil, h)
 )
 
@@ -31,7 +31,7 @@ func codecHandlerConfig() error {
 	msgpackHandle.ReaderBufferSize = 1024
 	msgpackHandle.WriterBufferSize = 1024
 
-	enc = codec.NewEncoderBytes(&b, h)
+	encoder = codec.NewEncoderBytes(&b, h)
 	decoder = codec.NewDecoderBytes(nil, h)
 	return nil
 }
@@ -47,6 +47,10 @@ func codecHandlerConfig() error {
 // Feedbackloop now just receive data
 // so it is also need storage for what we need to do
 func FeedbackLoop(queueName string, routingKeys []string) {
+	err := codecHandlerConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
 	if len(routingKeys) <= 0 {
 		log.Printf("Usage: COMMAND r queueName routingKey...")
 		os.Exit(0)
@@ -55,7 +59,7 @@ func FeedbackLoop(queueName string, routingKeys []string) {
 	s := session.NewSession("test-session", os.Getenv("CLOUDAMQP_URL"), nil)
 	defer s.Close()
 
-	err := s.ExchangeDeclare("test-logs_topic", "topic")
+	err = s.ExchangeDeclare("test-logs_topic", "topic")
 	utils.FailOnError(err, "[S] Failed to declare an exchange")
 
 	err = s.QueueDeclare(queueName)
@@ -144,8 +148,10 @@ func FeedbackLoop(queueName string, routingKeys []string) {
 	testCodecEncode()
 	err = s.Publish("test-logs_topic", "anonymous.info", b)
 	utils.FailOnError(err, "[S] Failed to publish a message")
+	testCodecEncode()
 	err = s.Publish("test-logs_topic", "anonymous.info", b)
 	utils.FailOnError(err, "[S] Failed to publish a message")
+	testCodecEncode()
 	err = s.Publish("test-logs_topic", "anonymous.info", b)
 	utils.FailOnError(err, "[S] Failed to publish a message")
 	go exitOnInterrupt()
@@ -178,8 +184,9 @@ func testCodecEncode() {
 	v1.S = "Testing Now."
 	v1.I += 1
 	//var h codec.Handle = new(codec.MsgpackHandle)
-	enc.ResetBytes(&b)
-	var err error = enc.Encode(v1)
+	encoder.ResetBytes(&b)
+	log.Printf("%p, %v, %v\n", b, b, v1)
+	var err error = encoder.Encode(v1)
 	log.Println(err)
 }
 

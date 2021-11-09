@@ -12,8 +12,8 @@ require (
 	github.com/mattn/go-colorable v0.0.0-20150625154642-40e4aedc8fab // indirect
 	github.com/mattn/go-isatty v0.0.0-20150814002629-7fcbc72f853b // indirect
 	github.com/pennz/amqp v0.1.0
-	github.com/streadway/amqp v0.0.0-20200108173154-1c71cc93ed71 // indirect
+	github.com/streadway/amqp v0.0.0-20200108173154-1c71cc93ed71
 	github.com/stretchr/testify v1.3.0
-	github.com/ugorji/go/codec v1.2.6 // indirect
+	github.com/ugorji/go/codec v1.2.6
 	gopkg.in/bluesuncorp/validator.v5 v5.9.1 // indirect
 )
